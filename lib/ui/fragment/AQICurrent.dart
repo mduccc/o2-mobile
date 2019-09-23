@@ -8,7 +8,6 @@ import 'package:o2_mobile/models/AirModel.dart';
 class AQICurrent extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
     return AQICurrentState();
   }
 }
@@ -32,6 +31,7 @@ class AQICurrentState extends State<AQICurrent> {
           Expanded(
               flex: 1,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   // Value
                   Expanded(

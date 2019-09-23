@@ -194,7 +194,8 @@ class ChartState extends State<ChartFrag> {
         if (!snapshot.hasError) {
           if (snapshot.hasData) {
             AirModel airModel = snapshot.data;
-            if (chartName == ChartModel.aqi) return _buildAQIChart(airModel);
+            if (airModel.code == 200) if (chartName == ChartModel.aqi)
+              return _buildAQIChart(airModel);
           } else
             print('No chart data');
         }

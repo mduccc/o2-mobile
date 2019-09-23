@@ -34,7 +34,7 @@ class _MyHomeScreenState extends State<HomeScreen> {
       socketBLoC.onNotify();
       if (socketBLoC.token != null) {
         loginProvider.info(socketBLoC.token).then((_) {
-          if (_ != null) socketBLoC.onDataChange(_.place_id);
+          if (_ != null && _.code == 200) socketBLoC.onDataChange(_.place_id);
         });
       }
     });

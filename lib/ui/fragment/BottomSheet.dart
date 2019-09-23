@@ -180,7 +180,7 @@ class BottomSheetState extends State<BottomSheet> {
         _airItem('Dust', dustQuality, dust, 'mg/m' + HTML.decode('&#179;'),
             Colors.blueAccent, Colors.white),
         // CO2
-        _airItem('CO', coQuality, co, 'g/mol', Colors.green, Colors.white),
+        _airItem('CO', coQuality, co, 'ppm', Colors.green, Colors.white),
         // UV
         _airItem('UV', uvQuality, uv, 'mW/cm' + HTML.decode('&#178;'),
             Colors.lightBlueAccent, Colors.white),
@@ -191,10 +191,10 @@ class BottomSheetState extends State<BottomSheet> {
         _airItem('Humidity', humidityQuality, humidity, '%',
             Colors.deepPurpleAccent, Colors.white),
         // Humidity
-        _airItem('Soil', soilQuality, soil, '', Colors.green, Colors.white),
+        _airItem('Soil', soilQuality, soil, '%', Colors.green, Colors.white),
         // Humidity
-        _airItem(
-            'Smoke', smokeQuality, smoke, '', Colors.deepOrange, Colors.white)
+        _airItem('Smoke', smokeQuality, smoke, 'ppm', Colors.deepOrange,
+            Colors.white)
       ],
     );
   }
@@ -206,19 +206,19 @@ class BottomSheetState extends State<BottomSheet> {
 
     if (airModel != null) {
       if (airModel.places[0].times[0].datas.rain == '1')
-        rain = 'yes';
+        rain = 'Raining';
       else
-        rain = 'no';
+        rain = 'Not raining';
 
       if (airModel.places[0].times[0].datas.gas == '1')
-        gas = 'yes';
+        gas = 'Gas detected';
       else
-        gas = 'no';
+        gas = 'No gas detected';
 
       if (airModel.places[0].times[0].datas.fire == '1')
-        fire = 'yes';
+        fire = 'Fire detected';
       else
-        fire = 'no';
+        fire = 'No fire detected';
     }
     return Column(
       children: <Widget>[
@@ -245,6 +245,7 @@ class BottomSheetState extends State<BottomSheet> {
             Expanded(
               flex: 1,
               child: Container(
+                padding: EdgeInsets.all(15),
                 margin: EdgeInsets.only(right: 10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -253,7 +254,7 @@ class BottomSheetState extends State<BottomSheet> {
                     child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    'Rain: ' + rain,
+                    rain,
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
@@ -263,6 +264,7 @@ class BottomSheetState extends State<BottomSheet> {
             Expanded(
               flex: 1,
               child: Container(
+                padding: EdgeInsets.all(15),
                 margin: EdgeInsets.only(left: 2.5, right: 2.5),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -271,7 +273,7 @@ class BottomSheetState extends State<BottomSheet> {
                     child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    'Gas: ' + gas,
+                    gas,
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
@@ -281,6 +283,7 @@ class BottomSheetState extends State<BottomSheet> {
             Expanded(
               flex: 1,
               child: Container(
+                padding: EdgeInsets.all(15),
                 margin: EdgeInsets.only(left: 10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -289,7 +292,7 @@ class BottomSheetState extends State<BottomSheet> {
                     child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: Text(
-                    'Fire: ' + fire,
+                    fire,
                     style: TextStyle(
                         color: Colors.white, fontWeight: FontWeight.bold),
                   ),
@@ -346,7 +349,8 @@ class BottomSheetState extends State<BottomSheet> {
                       if (!snapshot.hasError) {
                         if (snapshot.hasData) {
                           AirModel airModel = snapshot.data;
-                          return _bottomSheetContent(airModel);
+                          if (airModel.code == 200)
+                            return _bottomSheetContent(airModel);
                         } else
                           print('No air current data');
                       }
