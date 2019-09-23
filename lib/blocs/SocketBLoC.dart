@@ -6,31 +6,35 @@ import 'package:o2_mobile/business/EndPoint.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class SocketBLoC {
-  IO.Socket socket = IO.io(EndPoint.domain, <String, dynamic>{
-    'transports': ['websocket']
-  });
-  connect() {
+  IO.Socket _socket = null;
+  String token = null;
+
+  Future connect() async {
+    await databaseProvider.openOrCreate();
+    this.token = await databaseProvider.getToken();
+    if (this.token != null)
+      this._socket = IO.io(EndPoint.domain, <String, dynamic>{
+        'transports': ['websocket'],
+        'query': {'token': this.token}
+      });
+  }
+
+  onConnect() {
     print('Connecting to socket');
-    this.socket.on('connect', (_) {
+    this._socket.on('connect', (_) {
       print('Connected to socket');
     });
   }
 
-  onNotify() async {
-    await databaseProvider.openOrCreate();
-    String token = await databaseProvider.getToken();
-    this.socket.on('notify', (message) {
+  onNotify() {
+    this._socket.on('notify', (message) {
       print(message);
-      print(token);
-      airBloC.loadAirCurrent();
-      airBloC.loadAirToday();
     });
   }
 
-  onDataChange() async {
-    await databaseProvider.openOrCreate();
-    String token = await databaseProvider.getToken();
-    this.socket.on(token, (data) {
+  Future onDataChange(String place_id) async {
+    print('place_id: ' + place_id);
+    this._socket.on(place_id, (data) {
       print('onDataChange');
       // var _jsonEncode = json.encode(data);
       // var _jsonDecode = json.decode(_jsonEncode);

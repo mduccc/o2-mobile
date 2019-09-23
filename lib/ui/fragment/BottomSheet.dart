@@ -117,12 +117,16 @@ class BottomSheetState extends State<BottomSheet> {
     String uv = '-';
     String temp = '-';
     String humidity = '-';
+    String soil = '-';
+    String smoke = '-';
 
     String dustQuality = '-';
     String coQuality = '-';
     String uvQuality = '-';
     String tempQuality = '-';
     String humidityQuality = '-';
+    String soilQuality = '-';
+    String smokeQuality = '-';
 
     if (airModel != null) {
       dust =
@@ -138,13 +142,19 @@ class BottomSheetState extends State<BottomSheet> {
       humidity = Validate.isDoubleAndToString(
               airModel.places[0].times[0].datas.humidity)
           .toString();
-
+      soil =
+          Validate.isDoubleAndToString(airModel.places[0].times[0].datas.soil)
+              .toString();
+      smoke =
+          Validate.isDoubleAndToString(airModel.places[0].times[0].datas.smoke)
+              .toString();
       dust != 'false' ? dust = dust : dust = '-';
       co != 'false' ? co = co : co = '-';
       uv != 'false' ? uv = uv : uv = '-';
       temp != 'false' ? temp = temp : temp = '-';
       humidity != 'false' ? humidity = humidity : humidity = '-';
-
+      soil != 'false' ? soil = soil : soil = '-';
+      smoke != 'false' ? smoke = smoke : smoke = '-';
       uv != 'false'
           ? uvQuality = Thresholds.uv(double.parse(uv))
           : uvQuality = uvQuality;
@@ -179,7 +189,12 @@ class BottomSheetState extends State<BottomSheet> {
             Colors.blue, Colors.white),
         // Humidity
         _airItem('Humidity', humidityQuality, humidity, '%',
-            Colors.deepPurpleAccent, Colors.white)
+            Colors.deepPurpleAccent, Colors.white),
+        // Humidity
+        _airItem('Soil', soilQuality, soil, '', Colors.green, Colors.white),
+        // Humidity
+        _airItem(
+            'Smoke', smokeQuality, smoke, '', Colors.deepOrange, Colors.white)
       ],
     );
   }

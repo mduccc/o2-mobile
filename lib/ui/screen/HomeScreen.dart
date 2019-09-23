@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:o2_mobile/blocs/AirBloC.dart';
 import 'package:o2_mobile/blocs/SocketBLoC.dart';
-import 'package:o2_mobile/business/DatabaseProvider.dart';
+import 'package:o2_mobile/business/LoginProvider.dart';
 import 'package:o2_mobile/models/ChartModel.dart';
 import 'package:o2_mobile/ui/ThemseColors.dart';
 import 'package:o2_mobile/ui/fragment/AQICurrent.dart';
@@ -29,11 +29,15 @@ class _MyHomeScreenState extends State<HomeScreen> {
     airBloC.loadAirCurrent();
 
     // Registe to socket
-    socketBLoC.connect();
-    socketBLoC.onDataChange();
-    socketBLoC.onNotify();
-
-    print('initState');
+    socketBLoC.connect().then((_) {
+      socketBLoC.onConnect();
+      socketBLoC.onNotify();
+      if (socketBLoC.token != null) {
+        loginProvider.info(socketBLoC.token).then((_) {
+          if (_ != null) socketBLoC.onDataChange(_.place_id);
+        });
+      }
+    });
   }
 
   @override

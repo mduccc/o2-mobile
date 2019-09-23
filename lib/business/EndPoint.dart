@@ -4,4 +4,5 @@ class EndPoint {
   static String login = domain + _ver + '/login';
   static String airData = domain + _ver + '/data/get';
   static String airDataCurrent = domain + _ver + '/data/get/current';
+  static String accinfo = domain + _ver + '/data/get/info';
 }
