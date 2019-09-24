@@ -62,21 +62,44 @@ class _MyHomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: <Widget>[
                     Expanded(
-                      flex: 1,
-                      child: Container(
-                        padding: EdgeInsets.only(left: 10),
-                        margin: MediaQuery.of(context).padding,
-                        child: Align(
-                          alignment: FractionalOffset.centerLeft,
-                          child: Text(
-                            'AQI Live:',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                      ),
-                    ),
+                        flex: 1,
+                        child: Row(
+                          children: <Widget>[
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                padding: EdgeInsets.only(left: 10),
+                                margin: MediaQuery.of(context).padding,
+                                child: Align(
+                                    alignment: FractionalOffset.centerLeft,
+                                    child: FittedBox(
+                                      fit: BoxFit.scaleDown,
+                                      child: Text(
+                                        'Live AQI:',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    )),
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Container(
+                                padding: EdgeInsets.only(right: 10),
+                                margin: MediaQuery.of(context).padding,
+                                child: Align(
+                                    alignment: FractionalOffset.centerRight,
+                                    child: FittedBox(
+                                        fit: BoxFit.scaleDown,
+                                        child: Icon(
+                                          Icons.account_circle,
+                                          color: Colors.white,
+                                        ))),
+                              ),
+                            )
+                          ],
+                        )),
                     // Chart
                     Expanded(
                         flex: 4,
@@ -84,7 +107,8 @@ class _MyHomeScreenState extends State<HomeScreen> {
                             width: this._width,
                             padding:
                                 EdgeInsets.only(left: 15, right: 15, top: 20),
-                            child: ChartFrag(ChartModel.aqi))),
+                            child: ChartFrag(
+                                ChartModel.aqi, this._width, this._height))),
                     // AOI current
                     Expanded(
                         flex: 1,

@@ -6,17 +6,19 @@ import 'package:o2_mobile/models/AirModel.dart';
 import 'package:o2_mobile/models/ChartModel.dart';
 
 class ChartFrag extends StatefulWidget {
+  double _width, _height;
+  ChartFrag(this.charName, this._width, this._height);
   String charName;
-  ChartFrag(this.charName);
   @override
   State<StatefulWidget> createState() {
-    return ChartState(this.charName);
+    return ChartState(this.charName, this._width, this._height);
   }
 }
 
 class ChartState extends State<ChartFrag> {
   String chartName;
-  ChartState(this.chartName);
+  double _width, _height;
+  ChartState(this.chartName, this._width, this._height);
   LineChartBarData _drawChart(List<FlSpot> input, Color primaryLineColor,
       Color dotColor, double barWidth) {
     return LineChartBarData(
@@ -117,7 +119,7 @@ class ChartState extends State<ChartFrag> {
                       Colors.white.withOpacity(0.0),
                       Colors.white.withOpacity(0.0),
                       1)
-                  : _drawChart(limit, Colors.yellow.withOpacity(0.4),
+                  : _drawChart(limit, Colors.yellow.withOpacity(0.6),
                       Colors.transparent, 0.2),
               limit2 == null
                   ? _drawChart(
@@ -125,7 +127,7 @@ class ChartState extends State<ChartFrag> {
                       Colors.white.withOpacity(0.0),
                       Colors.white.withOpacity(0.0),
                       1)
-                  : _drawChart(limit2, Colors.red.withOpacity(0.4),
+                  : _drawChart(limit2, Colors.red.withOpacity(0.6),
                       Colors.transparent, 0.2)
             ]),
       ),
@@ -190,7 +192,84 @@ class ChartState extends State<ChartFrag> {
     }
     // Cannot draw line if only have one point, therefor check it before draw
     if (aoi.length > 1)
-      return _chart(aoi, limit, limit2);
+      return Column(
+        children: <Widget>[
+          // Chart
+          Expanded(
+            flex: 15,
+            child: Container(
+              width: double.infinity,
+              child: _chart(aoi, limit, limit2),
+            ),
+          ),
+          // Description
+          Expanded(
+            flex: 1,
+            child: Container(
+              margin: EdgeInsets.only(bottom: 5),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  Container(
+                    width: this._width / 25,
+                    height: 1,
+                    color: Colors.yellow.withOpacity(0.6),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 5, right: 5),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        'Warming.',
+                        style: TextStyle(
+                            color: Colors.yellow,
+                            fontWeight: FontWeight.w200,
+                            fontSize: 10),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: this._width / 25,
+                    height: 1,
+                    color: Colors.red.withOpacity(0.6),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 5, right: 5),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        'Danger.',
+                        style: TextStyle(
+                            color: Colors.red,
+                            fontWeight: FontWeight.w200,
+                            fontSize: 10),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: this._width / 25,
+                    height: 1,
+                    color: Colors.white.withOpacity(0.6),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 5, right: 5),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(
+                        'AQI.',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w200,
+                            fontSize: 10),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ],
+      );
     else
       return _chart(null);
   }
