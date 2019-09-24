@@ -328,7 +328,7 @@ class BottomSheetState extends State<BottomSheet> {
                 color: ThemseColors.secondColor,
                 borderRadius: BorderRadius.only(
                     topLeft: Radius.circular(15),
-                    topRight: Radius.circular(15))),
+                    topRight: Radius.circular(10))),
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
               controller: scrollController,

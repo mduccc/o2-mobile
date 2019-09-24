@@ -141,6 +141,7 @@ class ChartState extends State<ChartFrag> {
     List<FlSpot> limit5 = List();
     int maxLength = 12;
     int index = -1;
+    // for draw limit
     dynamic minX = false;
     dynamic maxX = false;
     // reversed and get 12 last value (newest)
@@ -149,22 +150,29 @@ class ChartState extends State<ChartFrag> {
       index++;
       if (index <= maxLength) {
         print(index);
+        // convert hh:mm to double
         String newTime = time.time
             .substring(time.time.indexOf(' '), time.time.length)
             .replaceAll(':', '.');
 
+        // set maxX, minX
         index == 0 ? maxX = Validate.isDouble(newTime) : false;
         index == maxLength || index == reversed.length - 1
             ? minX = Validate.isDouble(newTime)
             : false;
 
+        // X is time value converted, Y is value of AQI from dust
         var x = Validate.isDouble(newTime);
         var y = Validate.isDouble(time.datas.dust);
+
+        // If x, y is double number
         if (x != false && y != false) {
           //print(x.toString() + ' ' + y.toString());
           double aqi = 0;
           y <= 36.455 ? aqi = 0 : aqi = ((y / 1024) - 0.0356) * 120000 * 0.035;
           print('AQI: ' + aqi.toString());
+
+          // add a point to chart
           aoi.add(FlSpot(x, aqi));
         }
       }
@@ -173,6 +181,7 @@ class ChartState extends State<ChartFrag> {
     print('minX: ' + minX.toString());
     print('maxX: ' + maxX.toString());
 
+    // If minX, minY is double number
     if (minX != false && maxX != false) {
       limit.add(FlSpot(minX, 300));
       limit.add(FlSpot(maxX, 300));
@@ -180,7 +189,7 @@ class ChartState extends State<ChartFrag> {
       limit2.add(FlSpot(maxX, 1050));
     }
     // Cannot draw line if only have one point, therefor check it before draw
-    if (aoi.length > 1 && limit.length > 1)
+    if (aoi.length > 1)
       return _chart(aoi, limit, limit2);
     else
       return _chart(null);
