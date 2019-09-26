@@ -7,11 +7,11 @@ import 'HomeScreen.dart';
 class SplashScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return SplashScreenState();
+    return _SplashScreenState();
   }
 }
 
-class SplashScreenState extends State<SplashScreen> {
+class _SplashScreenState extends State<SplashScreen> {
   DatabaseProvider _databaseProvider = DatabaseProvider();
 
   goToLoginOrHome() async {

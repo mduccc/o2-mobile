@@ -9,11 +9,11 @@ import 'package:toast/toast.dart';
 class LoginScreen extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return LoginScreenState();
+    return _LoginScreenState();
   }
 }
 
-class LoginScreenState extends State<LoginScreen> {
+class _LoginScreenState extends State<LoginScreen> {
   TextEditingController _usernameEdittingController = TextEditingController();
   TextEditingController _passwordEdittingController = TextEditingController();
   FocusNode _usernameFocusNode = FocusNode();

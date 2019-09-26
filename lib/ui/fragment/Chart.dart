@@ -11,14 +11,14 @@ class ChartFrag extends StatefulWidget {
   String charName;
   @override
   State<StatefulWidget> createState() {
-    return ChartState(this.charName, this._width, this._height);
+    return _ChartState(this.charName, this._width, this._height);
   }
 }
 
-class ChartState extends State<ChartFrag> {
+class _ChartState extends State<ChartFrag> {
   String chartName;
   double _width, _height;
-  ChartState(this.chartName, this._width, this._height);
+  _ChartState(this.chartName, this._width, this._height);
   LineChartBarData _drawChart(List<FlSpot> input, Color primaryLineColor,
       Color dotColor, double barWidth) {
     return LineChartBarData(

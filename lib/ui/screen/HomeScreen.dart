@@ -7,6 +7,7 @@ import 'package:o2_mobile/ui/ThemseColors.dart';
 import 'package:o2_mobile/ui/fragment/AQICurrent.dart';
 import 'package:o2_mobile/ui/fragment/BottomSheet.dart' as custom;
 import 'package:o2_mobile/ui/fragment/Chart.dart';
+import 'package:o2_mobile/ui/fragment/HomeHeader.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -71,16 +72,11 @@ class _MyHomeScreenState extends State<HomeScreen> {
                                 padding: EdgeInsets.only(left: 10),
                                 margin: MediaQuery.of(context).padding,
                                 child: Align(
-                                    alignment: FractionalOffset.centerLeft,
-                                    child: FittedBox(
+                                  alignment: FractionalOffset.centerLeft,
+                                  child: FittedBox(
                                       fit: BoxFit.scaleDown,
-                                      child: Text(
-                                        'Live AQI:',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    )),
+                                      child: HomeHeader()),
+                                ),
                               ),
                             ),
                             Expanded(

@@ -12,13 +12,13 @@ class BottomSheet extends StatefulWidget {
   BottomSheet(this._width, this._height);
   @override
   State<StatefulWidget> createState() {
-    return BottomSheetState(this._width, this._height);
+    return _BottomSheetState(this._width, this._height);
   }
 }
 
-class BottomSheetState extends State<BottomSheet> {
+class _BottomSheetState extends State<BottomSheet> {
   double _width, _height;
-  BottomSheetState(this._width, this._height);
+  _BottomSheetState(this._width, this._height);
 
   Widget _airItem(String airName, String airQuality, String airValue,
       String airUnit, Color bgColor, textColors) {

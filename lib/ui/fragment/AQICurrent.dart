@@ -8,11 +8,11 @@ import 'package:o2_mobile/models/AirModel.dart';
 class AQICurrent extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return AQICurrentState();
+    return _AQICurrentState();
   }
 }
 
-class AQICurrentState extends State<AQICurrent> {
+class _AQICurrentState extends State<AQICurrent> {
   Widget _AQICurrent(String value) {
     var aqiValue = '-';
     var aqiQuality = '-';
