@@ -7,4 +7,5 @@ class EndPoint {
   static String accinfo = domain + _ver + '/data/get/info';
   static String sensorState = domain + _ver + '/device/get';
   static String sensorSwitch = domain + _ver + '/device/switch';
+  static String logout = domain + _ver + '/logout';
 }

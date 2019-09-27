@@ -2,9 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o2_mobile/blocs/LoginBloC.dart';
 import 'package:o2_mobile/business/DatabaseProvider.dart';
+import 'package:o2_mobile/business/LogoutProvider.dart';
 import 'package:o2_mobile/models/AccModel.dart';
+import 'package:o2_mobile/models/DeviceModel.dart' as prefix0;
 import 'package:o2_mobile/ui/ThemseColors.dart';
 import 'package:o2_mobile/ui/screen/LoginScreen.dart';
+import 'package:toast/toast.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -14,6 +17,16 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  bool _onLogout = false;
+
+  notify(String message, Color bgColor) {
+    if (message != null && bgColor != null)
+      Toast.show(message, context,
+          duration: Toast.LENGTH_LONG,
+          gravity: Toast.BOTTOM,
+          backgroundColor: bgColor);
+  }
+
   Widget _item(String label, String value) {
     return Container(
       margin: EdgeInsets.only(bottom: 5, top: 5),
@@ -173,12 +186,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     fontWeight: FontWeight.bold,
                   )),
               onTap: () async {
-                await databaseProvider.openOrCreate();
-                await databaseProvider.makeEmptyTokenTable();
-                // Push and remove all others screen in router
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) => LoginScreen()),
-                    (Route<dynamic> route) => false);
+                setState(() {
+                  this._onLogout = true;
+                });
+                prefix0.Switch _switch = await logoutProvider.logout();
+                if (_switch != null && _switch.code == 200) {
+                  await databaseProvider.openOrCreate();
+                  await databaseProvider.makeEmptyTokenTable();
+                  // Push and remove all others screen in router
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(builder: (context) => LoginScreen()),
+                      (Route<dynamic> route) => false);
+
+                  notify('Logged out', Colors.green);
+                } else {
+                  setState(() {
+                    this._onLogout = false;
+                  });
+                }
               },
             )),
           )),
@@ -207,21 +232,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ),
       ),
       body: Container(
-        color: ThemseColors.primaryColor,
-        height: double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
+          color: ThemseColors.primaryColor,
+          height: double.infinity,
+          child: Stack(
             children: <Widget>[
-              // Acc header
-              this._accountHeader(),
-              // info
-              this._info(),
-              // Logout
-              this._logout()
+              SingleChildScrollView(
+                child: Column(
+                  children: <Widget>[
+                    // Acc header
+                    this._accountHeader(),
+                    // info
+                    this._info(),
+                    // Logout
+                    this._logout()
+                  ],
+                ),
+              ),
+              Center(
+                child: this._onLogout
+                    ? Container(
+                        width: double.infinity,
+                        height: double.infinity,
+                        color: ThemseColors.primaryColor.withOpacity(0.6),
+                        child: Center(
+                          child: CircularProgressIndicator(),
+                        ),
+                      )
+                    : Center(),
+              )
             ],
-          ),
-        ),
-      ),
+          )),
     );
   }
 }
