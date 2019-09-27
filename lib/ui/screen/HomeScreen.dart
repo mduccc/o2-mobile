@@ -52,7 +52,7 @@ class _MyHomeScreenState extends State<HomeScreen> {
       builder: (BuildContext context) {
         // Parent
         return Container(
-          color: ThemseColors.primariColor,
+          color: ThemseColors.primaryColor,
           // Widget over on others Widget
           child: Stack(
             children: <Widget>[

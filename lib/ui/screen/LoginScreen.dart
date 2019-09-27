@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       body: SizedBox.expand(
         child: Container(
-          color: ThemseColors.primariColor,
+          color: ThemseColors.primaryColor,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -62,7 +62,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 flex: 2,
                 child: Container(
                     width: double.infinity,
-                    color: ThemseColors.primariColor,
+                    color: ThemseColors.primaryColor,
                     child: Align(
                       alignment: FractionalOffset.bottomCenter,
                       child: Text(
@@ -78,7 +78,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Expanded(
                   flex: 5,
                   child: Container(
-                    color: ThemseColors.primariColor,
+                    color: ThemseColors.primaryColor,
                     padding: EdgeInsets.only(left: 25, right: 25),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Expanded(
                             flex: 2,
                             child: Container(
-                              color: ThemseColors.primariColor,
+                              color: ThemseColors.primaryColor,
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: <Widget>[
@@ -171,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             flex: 2,
                             child: Container(
                                 width: double.infinity,
-                                color: ThemseColors.primariColor,
+                                color: ThemseColors.primaryColor,
                                 padding: EdgeInsets.only(top: 25),
                                 child: Align(
                                   alignment: FractionalOffset.topCenter,
@@ -187,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                         ),
                                       ),
                                       color: Color(0xff9c4dcc),
-                                      textColor: ThemseColors.primariColor,
+                                      textColor: ThemseColors.primaryColor,
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(25)),
@@ -252,7 +252,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 flex: 1,
                 child: Container(
                     width: double.infinity,
-                    color: ThemseColors.primariColor,
+                    color: ThemseColors.primaryColor,
                     child: Align(
                       alignment: FractionalOffset.bottomCenter,
                       child: Container(
