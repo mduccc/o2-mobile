@@ -63,39 +63,9 @@ class _MyHomeScreenState extends State<HomeScreen> {
                 child: Column(
                   children: <Widget>[
                     Expanded(
-                        flex: 1,
-                        child: Row(
-                          children: <Widget>[
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                padding: EdgeInsets.only(left: 10),
-                                margin: MediaQuery.of(context).padding,
-                                child: Align(
-                                  alignment: FractionalOffset.centerLeft,
-                                  child: FittedBox(
-                                      fit: BoxFit.scaleDown,
-                                      child: HomeHeader()),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                padding: EdgeInsets.only(right: 10),
-                                margin: MediaQuery.of(context).padding,
-                                child: Align(
-                                    alignment: FractionalOffset.centerRight,
-                                    child: FittedBox(
-                                        fit: BoxFit.scaleDown,
-                                        child: Icon(
-                                          Icons.account_circle,
-                                          color: Colors.white,
-                                        ))),
-                              ),
-                            )
-                          ],
-                        )),
+                      flex: 1,
+                      child: HomeHeader(),
+                    ),
                     // Chart
                     Expanded(
                         flex: 4,
