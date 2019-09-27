@@ -261,25 +261,25 @@ class _BottomSheetState extends State<BottomSheet> {
                 )),
               ),
             ),
-            Expanded(
-              flex: 1,
-              child: Container(
-                padding: EdgeInsets.all(15),
-                margin: EdgeInsets.only(left: 2.5, right: 2.5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.deepPurple),
-                child: Center(
-                    child: FittedBox(
-                  fit: BoxFit.scaleDown,
-                  child: Text(
-                    gas,
-                    style: TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
-                  ),
-                )),
-              ),
-            ),
+            // Expanded(
+            //   flex: 1,
+            //   child: Container(
+            //     padding: EdgeInsets.all(15),
+            //     margin: EdgeInsets.only(left: 2.5, right: 2.5),
+            //     decoration: BoxDecoration(
+            //         borderRadius: BorderRadius.all(Radius.circular(10)),
+            //         color: Colors.deepPurple),
+            //     child: Center(
+            //         child: FittedBox(
+            //       fit: BoxFit.scaleDown,
+            //       child: Text(
+            //         gas,
+            //         style: TextStyle(
+            //             color: Colors.white, fontWeight: FontWeight.bold),
+            //       ),
+            //     )),
+            //   ),
+            // ),
             Expanded(
               flex: 1,
               child: Container(

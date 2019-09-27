@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:o2_mobile/blocs/AirBloC.dart';
+import 'package:o2_mobile/blocs/LoginBloC.dart';
 import 'package:o2_mobile/blocs/SocketBLoC.dart';
 import 'package:o2_mobile/business/LoginProvider.dart';
 import 'package:o2_mobile/models/ChartModel.dart';
@@ -35,7 +36,10 @@ class _MyHomeScreenState extends State<HomeScreen> {
       socketBLoC.onNotify();
       if (socketBLoC.token != null) {
         loginProvider.info(socketBLoC.token).then((_) {
-          if (_ != null && _.code == 200) socketBLoC.onDataChange(_.place_id);
+          if (_ != null && _.code == 200) {
+            socketBLoC.onDataChange(_.place_id);
+            accInfoPublishSubject.add(_);
+          }
         });
       }
     });

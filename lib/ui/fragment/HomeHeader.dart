@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:o2_mobile/blocs/AirStream.dart';
+import 'package:o2_mobile/blocs/LoginBloC.dart';
+import 'package:o2_mobile/models/AccModel.dart';
 import 'package:o2_mobile/models/AirModel.dart';
+import 'package:o2_mobile/ui/screen/ProfileScreen.dart';
 
 class HomeHeader extends StatefulWidget {
   @override
@@ -25,14 +28,14 @@ class _HomeHeaderState extends State<HomeHeader> {
               child: FittedBox(
                   fit: BoxFit.scaleDown,
                   child: StreamBuilder(
-                    stream: airCurrentStream,
+                    stream: accInfoPublishSubject.stream,
                     builder: (context, snapshot) {
                       if (!snapshot.hasError) {
                         if (snapshot.hasData) {
-                          AirModel airModel = snapshot.data;
-                          if (airModel.code == 200)
+                          AccModel accModel = snapshot.data;
+                          if (accModel.code == 200)
                             return Text(
-                              'AQI in ' + airModel.places[0].place_name,
+                              'AQI in ' + accModel.place_name,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
@@ -56,9 +59,17 @@ class _HomeHeaderState extends State<HomeHeader> {
                 alignment: FractionalOffset.centerRight,
                 child: FittedBox(
                     fit: BoxFit.scaleDown,
-                    child: Icon(
-                      Icons.account_circle,
-                      color: Colors.white,
+                    child: InkWell(
+                      child: Icon(
+                        Icons.account_circle,
+                        color: Colors.white,
+                      ),
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProfileScreen()));
+                      },
                     ))),
           ),
         )
