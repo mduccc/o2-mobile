@@ -1,12 +1,12 @@
 import 'dart:convert';
 
 import 'package:o2_mobile/business/EndPoint.dart';
-import 'package:o2_mobile/models/SensorModel.dart';
 import 'package:http/http.dart' as http;
+import 'package:o2_mobile/models/DeviceModel.dart';
 
 import 'DatabaseProvider.dart';
 
-class SensorControlProvider {
+class DeviceControlProvider {
   http.Client _client = http.Client();
 
   Future<State> state() async {

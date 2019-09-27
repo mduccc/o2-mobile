@@ -5,6 +5,6 @@ class EndPoint {
   static String airData = domain + _ver + '/data/get';
   static String airDataCurrent = domain + _ver + '/data/get/current';
   static String accinfo = domain + _ver + '/data/get/info';
-  static String sensorState = domain + _ver + '/sensor/get';
-  static String sensorSwitch = domain + _ver + '/sensor/switch';
+  static String sensorState = domain + _ver + '/device/get';
+  static String sensorSwitch = domain + _ver + '/device/switch';
 }
