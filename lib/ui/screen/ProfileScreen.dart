@@ -174,6 +174,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   )),
               onTap: () async {
                 await databaseProvider.openOrCreate();
+                await databaseProvider.makeEmptyTokenTable();
                 // Push and remove all others screen in router
                 Navigator.of(context).pushAndRemoveUntil(
                     MaterialPageRoute(builder: (context) => LoginScreen()),
