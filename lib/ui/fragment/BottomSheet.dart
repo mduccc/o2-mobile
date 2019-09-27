@@ -327,7 +327,7 @@ class _BottomSheetState extends State<BottomSheet> {
             decoration: BoxDecoration(
                 color: ThemseColors.secondColor,
                 borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(15),
+                    topLeft: Radius.circular(10),
                     topRight: Radius.circular(10))),
             child: SingleChildScrollView(
               physics: BouncingScrollPhysics(),
