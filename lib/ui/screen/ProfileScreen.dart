@@ -32,24 +32,26 @@ class _ProfileScreenState extends State<ProfileScreen> {
       margin: EdgeInsets.only(bottom: 5, top: 5),
       child: Row(
         children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Container(
-              child: Text(label + ':',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  )),
-            ),
-          ),
-          Expanded(
-            flex: 4,
+          Container(
+              margin: EdgeInsets.only(right: 10),
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                alignment: FractionalOffset.centerLeft,
+                child: Text(label + ':',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    )),
+              )),
+          FittedBox(
+            fit: BoxFit.scaleDown,
+            alignment: FractionalOffset.centerLeft,
             child: Text(value,
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.w300,
                 )),
-          ),
+          )
         ],
       ),
     );
@@ -57,16 +59,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _accountHeader() {
     return Container(
-      height: 70,
+      height: 100,
+      width: double.infinity,
+      padding: EdgeInsets.all(2),
       margin: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 15),
       decoration: BoxDecoration(
           color: ThemseColors.secondColor,
           borderRadius: BorderRadius.all(Radius.circular(10))),
-      child: Row(
+      child: Column(
         children: <Widget>[
           // Image
           Expanded(
-            flex: 1,
+            flex: 2,
             child: Container(
               padding: EdgeInsets.all(5),
               height: double.infinity,
@@ -76,61 +80,44 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
           ),
-          // Username
           Expanded(
-              flex: 3,
-              child: Container(
-                padding: EdgeInsets.only(top: 5, bottom: 5),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Expanded(
-                      flex: 1,
-                      child: Align(
-                          alignment: Alignment.bottomLeft,
-                          child: StreamBuilder(
-                              stream: accInfoPublishSubject.stream,
-                              builder: (context, snapshot) {
-                                if (!snapshot.hasError) {
-                                  if (snapshot.hasData) {
-                                    AccModel accModel = snapshot.data;
-                                    return Text(
-                                      accModel.accID,
-                                      style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 18,
-                                      ),
-                                    );
-                                  }
-                                }
-                                return Text(
-                                  '-',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                  ),
-                                );
-                              })),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          '',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w200,
-                            fontSize: 11,
+            flex: 1,
+            child: Container(
+              child: StreamBuilder(
+                  stream: accInfoPublishSubject.stream,
+                  builder: (context, snapshot) {
+                    if (!snapshot.hasError) {
+                      if (snapshot.hasData) {
+                        AccModel accModel = snapshot.data;
+                        return FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: FractionalOffset.center,
+                          child: Text(
+                            accModel.accID,
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
                           ),
+                        );
+                      }
+                    }
+                    return FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: FractionalOffset.center,
+                      child: Text(
+                        '-',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16,
                         ),
                       ),
-                    )
-                  ],
-                ),
-              ))
+                    );
+                  }),
+            ),
+          )
         ],
       ),
     );
