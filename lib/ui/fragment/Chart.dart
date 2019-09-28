@@ -101,7 +101,10 @@ class _ChartState extends State<ChartFrag> {
                         newTitle = h + 'h' + m;
                       } else
                         newTitle = valueString;
-                      return newTitle;
+                      if (newTitle.length <= 5)
+                        return newTitle;
+                      else
+                        return '';
                     }),
                 rightTitles: SideTitles(showTitles: false)),
             // List data here
