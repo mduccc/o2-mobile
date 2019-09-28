@@ -35,7 +35,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                           AccModel accModel = snapshot.data;
                           if (accModel.code == 200)
                             return Text(
-                              'AQI in ' + accModel.place_name,
+                              'Reatime in ' + accModel.place_name,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),
