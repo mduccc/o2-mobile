@@ -84,7 +84,7 @@ class _ChartState extends State<ChartFrag> {
                   ),
                 ),
                 bottomTitles: SideTitles(
-                    margin: 5,
+                    margin: 2,
                     showTitles: true,
                     textStyle: TextStyle(
                         fontSize: 6,
@@ -199,7 +199,7 @@ class _ChartState extends State<ChartFrag> {
         children: <Widget>[
           // Chart
           Expanded(
-            flex: 15,
+            flex: 10,
             child: Container(
               width: double.infinity,
               child: _chart(aoi, limit, limit2),
@@ -209,17 +209,21 @@ class _ChartState extends State<ChartFrag> {
           Expanded(
             flex: 1,
             child: Container(
-              margin: EdgeInsets.only(bottom: 5),
+              margin: EdgeInsets.only(bottom: 10),
               child: Row(
                 children: <Widget>[
                   Expanded(
                     flex: 1,
-                    child: Text(
-                      'For last 4 hours',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w200,
-                          fontSize: 10),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: FractionalOffset.centerLeft,
+                      child: Text(
+                        'For last 4 hours',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w200,
+                            fontSize: 10),
+                      ),
                     ),
                   ),
                   Expanded(
