@@ -25,7 +25,7 @@ class _ChartState extends State<ChartFrag> {
       dotData: FlDotData(
         show: true,
         dotColor: dotColor,
-        dotSize: 2,
+        dotSize: 0.8,
       ),
       isCurved: false,
       // Put data here
@@ -60,7 +60,7 @@ class _ChartState extends State<ChartFrag> {
                 show: true,
                 border: Border(
                   bottom: BorderSide(
-                    color: Colors.purple,
+                    color: Colors.green,
                     width: 2,
                   ),
                   left: BorderSide(
@@ -144,7 +144,7 @@ class _ChartState extends State<ChartFrag> {
     List<FlSpot> limit3 = List();
     List<FlSpot> limit4 = List();
     List<FlSpot> limit5 = List();
-    int maxLength = 12;
+    int maxLength = 48;
     int index = -1;
     // for draw limit
     dynamic minX = false;
@@ -211,62 +211,79 @@ class _ChartState extends State<ChartFrag> {
             child: Container(
               margin: EdgeInsets.only(bottom: 5),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Container(
-                    width: this._width / 25,
-                    height: 1,
-                    color: Colors.yellow.withOpacity(0.6),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        'Warming.',
-                        style: TextStyle(
-                            color: Colors.yellow,
-                            fontWeight: FontWeight.w200,
-                            fontSize: 10),
-                      ),
+                  Expanded(
+                    flex: 1,
+                    child: Text(
+                      'For last 4 hours',
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w200,
+                          fontSize: 10),
                     ),
                   ),
-                  Container(
-                    width: this._width / 25,
-                    height: 1,
-                    color: Colors.red.withOpacity(0.6),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        'Danger.',
-                        style: TextStyle(
-                            color: Colors.red,
-                            fontWeight: FontWeight.w200,
-                            fontSize: 10),
-                      ),
+                  Expanded(
+                    flex: 2,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: <Widget>[
+                        Container(
+                          width: this._width / 25,
+                          height: 1,
+                          color: Colors.yellow.withOpacity(0.6),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 5, right: 5),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'Warming.',
+                              style: TextStyle(
+                                  color: Colors.yellow,
+                                  fontWeight: FontWeight.w200,
+                                  fontSize: 10),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: this._width / 25,
+                          height: 1,
+                          color: Colors.red.withOpacity(0.6),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 5, right: 5),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'Danger.',
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontWeight: FontWeight.w200,
+                                  fontSize: 10),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: this._width / 25,
+                          height: 1,
+                          color: Colors.white.withOpacity(0.6),
+                        ),
+                        Container(
+                          margin: EdgeInsets.only(left: 5, right: 5),
+                          child: FittedBox(
+                            fit: BoxFit.scaleDown,
+                            child: Text(
+                              'AQI.',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w200,
+                                  fontSize: 10),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                  Container(
-                    width: this._width / 25,
-                    height: 1,
-                    color: Colors.white.withOpacity(0.6),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 5, right: 5),
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      child: Text(
-                        'AQI.',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.w200,
-                            fontSize: 10),
-                      ),
-                    ),
-                  ),
+                  )
                 ],
               ),
             ),
