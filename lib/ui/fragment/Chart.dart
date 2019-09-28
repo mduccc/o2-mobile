@@ -122,7 +122,7 @@ class _ChartState extends State<ChartFrag> {
                       Colors.white.withOpacity(0.0),
                       Colors.white.withOpacity(0.0),
                       1)
-                  : _drawChart(limit, Colors.yellow.withOpacity(0.6),
+                  : _drawChart(limit, Colors.yellow.withOpacity(0.8),
                       Colors.transparent, 0.2),
               limit2 == null
                   ? _drawChart(
@@ -130,7 +130,7 @@ class _ChartState extends State<ChartFrag> {
                       Colors.white.withOpacity(0.0),
                       Colors.white.withOpacity(0.0),
                       1)
-                  : _drawChart(limit2, Colors.red.withOpacity(0.6),
+                  : _drawChart(limit2, Colors.red.withOpacity(0.8),
                       Colors.transparent, 0.2)
             ]),
       ),
