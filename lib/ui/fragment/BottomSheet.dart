@@ -176,25 +176,27 @@ class _BottomSheetState extends State<BottomSheet> {
                 ),
               ),
             )),
-        // Dust
-        _airItem('Dust', dustQuality, dust, 'mg/m' + HTML.decode('&#179;'),
-            Colors.blueAccent, Colors.white),
-        // CO2
-        _airItem('CO', coQuality, co, 'ppm', Colors.green, Colors.white),
-        // UV
-        _airItem('UV', uvQuality, uv, 'mW/cm' + HTML.decode('&#178;'),
-            Colors.lightBlueAccent, Colors.white),
         // Temp
         _airItem('Temperature', tempQuality, temp, HTML.decode('&#176;') + 'C',
-            Colors.blue, Colors.white),
+            Colors.blue.withOpacity(0.9), Colors.white),
         // Humidity
         _airItem('Humidity', humidityQuality, humidity, '%',
-            Colors.deepPurpleAccent, Colors.white),
-        // Humidity
-        _airItem('Soil', soilQuality, soil, '%', Colors.green, Colors.white),
-        // Humidity
-        _airItem('Smoke', smokeQuality, smoke, 'ppm', Colors.deepOrange,
-            Colors.white)
+            Colors.blue.withOpacity(0.7), Colors.white),
+        // Smoke
+        _airItem('Smoke', smokeQuality, smoke, 'ppm',
+            Colors.blueAccent.withOpacity(0.9), Colors.white),
+        // CO2
+        _airItem('CO', coQuality, co, 'ppm',
+            Colors.greenAccent.withOpacity(0.6), Colors.white),
+        // Dust
+        _airItem('Dust', dustQuality, dust, 'mg/m' + HTML.decode('&#179;'),
+            Colors.blueAccent.withOpacity(0.8), Colors.white),
+        // UV
+        _airItem('UV', uvQuality, uv, 'mW/cm' + HTML.decode('&#178;'),
+            Colors.lightBlueAccent.withOpacity(0.8), Colors.white),
+        // Soil
+        _airItem('Soil', soilQuality, soil, '%', Colors.green.withOpacity(0.9),
+            Colors.white),
       ],
     );
   }
@@ -249,7 +251,7 @@ class _BottomSheetState extends State<BottomSheet> {
                 margin: EdgeInsets.only(right: 10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.deepPurple),
+                    color: Colors.blue),
                 child: Center(
                     child: FittedBox(
                   fit: BoxFit.scaleDown,
@@ -287,7 +289,7 @@ class _BottomSheetState extends State<BottomSheet> {
                 margin: EdgeInsets.only(left: 10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.deepPurple),
+                    color: Colors.blue),
                 child: Center(
                     child: FittedBox(
                   fit: BoxFit.scaleDown,
