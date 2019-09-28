@@ -23,7 +23,7 @@ class _AQICurrentState extends State<AQICurrent> {
     }
 
     return Container(
-      margin: EdgeInsets.only(left: 10, right: 10, bottom: 5),
+      margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
       decoration: BoxDecoration(
           color: ThemseColors.secondColor,
           borderRadius: BorderRadius.all(Radius.circular(10))),
