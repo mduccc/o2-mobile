@@ -75,8 +75,7 @@ class _MyHomeScreenState extends State<HomeScreen> {
                         flex: 4,
                         child: Container(
                             width: this._width,
-                            padding:
-                                EdgeInsets.only(left: 15, right: 15, top: 20),
+                            padding: EdgeInsets.only(left: 15, right: 15),
                             margin: EdgeInsets.all(10),
                             decoration: BoxDecoration(
                               borderRadius:

@@ -197,19 +197,10 @@ class _ChartState extends State<ChartFrag> {
     if (aoi.length > 1)
       return Column(
         children: <Widget>[
-          // Chart
-          Expanded(
-            flex: 10,
-            child: Container(
-              width: double.infinity,
-              child: _chart(aoi, limit, limit2),
-            ),
-          ),
           // Description
           Expanded(
             flex: 1,
             child: Container(
-              margin: EdgeInsets.only(bottom: 10),
               child: Row(
                 children: <Widget>[
                   Expanded(
@@ -291,7 +282,15 @@ class _ChartState extends State<ChartFrag> {
                 ],
               ),
             ),
-          )
+          ),
+          // Chart
+          Expanded(
+            flex: 10,
+            child: Container(
+              width: double.infinity,
+              child: _chart(aoi, limit, limit2),
+            ),
+          ),
         ],
       );
     else
