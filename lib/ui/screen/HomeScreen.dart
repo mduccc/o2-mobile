@@ -77,6 +77,12 @@ class _MyHomeScreenState extends State<HomeScreen> {
                             width: this._width,
                             padding:
                                 EdgeInsets.only(left: 15, right: 15, top: 20),
+                            margin: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(10)),
+                              color: ThemseColors.secondColor,
+                            ),
                             child: ChartFrag(
                                 ChartModel.aqi, this._width, this._height))),
                     // AOI current
