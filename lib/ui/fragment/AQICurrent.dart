@@ -4,6 +4,7 @@ import 'package:o2_mobile/blocs/AirStream.dart';
 import 'package:o2_mobile/business/Thresholds.dart';
 import 'package:o2_mobile/business/Validate.dart';
 import 'package:o2_mobile/models/AirModel.dart';
+import 'package:o2_mobile/ui/ThemseColors.dart';
 
 class AQICurrent extends StatefulWidget {
   @override
@@ -24,7 +25,7 @@ class _AQICurrentState extends State<AQICurrent> {
     return Container(
       margin: EdgeInsets.only(left: 10, right: 10, bottom: 5),
       decoration: BoxDecoration(
-          color: Colors.deepPurple.withOpacity(0.5),
+          color: ThemseColors.secondColor,
           borderRadius: BorderRadius.all(Radius.circular(10))),
       child: Row(
         children: <Widget>[
