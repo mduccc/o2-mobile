@@ -20,63 +20,70 @@ class _DeviceState extends State<DeviceScreen> {
   List<String> _deviceList = List();
   List<Widget> _loadingList = List();
   Color _on = Colors.blue;
-  Color _off = Colors.blue.withOpacity(0.4);
+  Color _off = Colors.blue.withOpacity(0.1);
   _DeviceState(this._place_name);
 
   Widget _item(int index) {
     return Container(
-        width: 70,
-        height: 70,
-        margin: EdgeInsets.only(right: 35, bottom: 15),
-        decoration: BoxDecoration(
-            color: this._colorList[index],
-            borderRadius: BorderRadius.all(Radius.circular(50))),
-        child: InkWell(
-          onTap: () async {
-            setState(() {
-              this._loadingList[index] = CircularProgressIndicator(
-                backgroundColor: Colors.white,
-              );
-            });
-            print('Switching ' +
+      width: 70,
+      height: 70,
+      margin: EdgeInsets.only(right: 15, bottom: 15, left: 15),
+      decoration: BoxDecoration(
+          color: this._colorList[index],
+          borderRadius: BorderRadius.all(Radius.circular(50))),
+      child: InkWell(
+        onTap: () async {
+          setState(() {
+            this._loadingList[index] = CircularProgressIndicator(
+              backgroundColor: Colors.white,
+            );
+          });
+          print('Switching ' +
+              this._deviceList[index].toLowerCase().replaceAll(' ', '_'));
+          DeviceModel.Switch _switch = await deviceControlProvider.switch_(
+              this._deviceList[index].toLowerCase().replaceAll(' ', '_'),
+              this._colorList[index] == this._on ? '0' : '1');
+          if (_switch != null && _switch.code == 200) {
+            print('Switched ' +
                 this._deviceList[index].toLowerCase().replaceAll(' ', '_'));
-            DeviceModel.Switch _switch = await deviceControlProvider.switch_(
-                this._deviceList[index].toLowerCase().replaceAll(' ', '_'),
-                this._colorList[index] == this._on ? '0' : '1');
-            if (_switch != null && _switch.code == 200) {
-              print('Switched ' +
-                  this._deviceList[index].toLowerCase().replaceAll(' ', '_'));
-              setState(() {
-                this._loadingList[index] = Text('');
-                if (this._colorList[index] == this._on)
-                  this._colorList[index] = this._off;
-                else
-                  this._colorList[index] = this._on;
-              });
-            } else {
-              print(_switch.code);
-              setState(() {
-                this._loadingList[index] = Text('');
-              });
-            }
-          },
-          child: FittedBox(
+            setState(() {
+              this._loadingList[index] = Text('');
+              if (this._colorList[index] == this._on)
+                this._colorList[index] = this._off;
+              else
+                this._colorList[index] = this._on;
+            });
+          } else {
+            print(_switch.code);
+            setState(() {
+              this._loadingList[index] = Text('');
+            });
+          }
+        },
+        child: FittedBox(
             fit: BoxFit.scaleDown,
-            child: Center(
-                child: Stack(
+            child: Stack(
               children: <Widget>[
-                Text(
-                  this._deviceList[index][0].toUpperCase() +
-                      this._deviceList[index].substring(1),
-                  style: TextStyle(color: Colors.white),
+                Container(
+                  width: 70,
+                  height: 70,
+                  child: Center(
+                    child: Text(
+                      this._deviceList[index][0].toUpperCase() +
+                          this._deviceList[index].substring(1),
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
                 ),
                 Container(
+                  width: 70,
+                  height: 70,
                   child: this._loadingList[index],
                 )
               ],
             )),
-          ),
-        ));
+      ),
+    );
   }
 
   Widget _place() {
