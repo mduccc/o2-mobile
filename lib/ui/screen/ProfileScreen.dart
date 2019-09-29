@@ -6,6 +6,7 @@ import 'package:o2_mobile/business/LogoutProvider.dart';
 import 'package:o2_mobile/models/AccModel.dart';
 import 'package:o2_mobile/models/DeviceModel.dart' as prefix0;
 import 'package:o2_mobile/ui/ThemseColors.dart';
+import 'package:o2_mobile/ui/screen/DeviceScreen.dart';
 import 'package:o2_mobile/ui/screen/LoginScreen.dart';
 import 'package:toast/toast.dart';
 
@@ -18,6 +19,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   bool _onLogout = false;
+  AccModel _accModel = null;
 
   notify(String message, Color bgColor) {
     if (message != null && bgColor != null)
@@ -88,12 +90,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   builder: (context, snapshot) {
                     if (!snapshot.hasError) {
                       if (snapshot.hasData) {
-                        AccModel accModel = snapshot.data;
+                        this._accModel = snapshot.data;
                         return FittedBox(
                           fit: BoxFit.scaleDown,
                           alignment: FractionalOffset.center,
                           child: Text(
-                            accModel.accID,
+                            this._accModel.accID,
                             style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,
@@ -197,6 +199,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
+  Widget _device() {
+    return Container(
+      width: double.infinity,
+      margin: EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 15),
+      padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+      decoration: BoxDecoration(
+          color: ThemseColors.secondColor,
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      child: Container(
+          margin: EdgeInsets.only(bottom: 5, top: 5),
+          child: Center(
+            child: Container(
+                child: InkWell(
+              child: Text('My Devices',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                  )),
+              onTap: () {
+                if (this._accModel != null) {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) =>
+                          DeviceScreen(this._accModel.place_name)));
+                }
+              },
+            )),
+          )),
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -227,11 +259,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 child: Column(
                   children: <Widget>[
                     // Acc header
-                    this._accountHeader(),
+                    _accountHeader(),
                     // info
-                    this._info(),
+                    _info(),
+                    // Device
+                    _device(),
+                    SizedBox(
+                      height: 15,
+                    ),
                     // Logout
-                    this._logout()
+                    _logout()
                   ],
                 ),
               ),
