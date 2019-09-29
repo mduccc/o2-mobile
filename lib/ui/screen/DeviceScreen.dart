@@ -17,11 +17,12 @@ class _DeviceState extends State<DeviceScreen> {
   // true: on, false: off
   List<Color> _colorList = List();
   List<String> _deviceList = List();
+  List<Widget> _loadingList = List();
   Color _on = Colors.blue;
   Color _off = Colors.blue.withOpacity(0.4);
   _DeviceState(this._place_name);
 
-  Widget _item(String name, int index) {
+  Widget _item(int index) {
     return Container(
         width: 70,
         height: 70,
@@ -32,23 +33,29 @@ class _DeviceState extends State<DeviceScreen> {
         child: InkWell(
           onTap: () {
             setState(() {
-              if (this._colorList[index] == this._on)
+              this._loadingList[index] = CircularProgressIndicator(
+                backgroundColor: Colors.white,
+              );
+            });
+            /*
+            if (this._colorList[index] == this._on)
                 this._colorList[index] = this._off;
               else
                 this._colorList[index] = this._on;
-            });
+            */
           },
           child: FittedBox(
             fit: BoxFit.scaleDown,
             child: Center(
-              child: FittedBox(
-                fit: BoxFit.scaleDown,
-                child: Text(
-                  name,
+                child: Stack(
+              children: <Widget>[
+                Text(
+                  this._deviceList[index],
                   style: TextStyle(color: Colors.white),
                 ),
-              ),
-            ),
+                this._loadingList[index]
+              ],
+            )),
           ),
         ));
   }
@@ -79,16 +86,18 @@ class _DeviceState extends State<DeviceScreen> {
               ),
             ),
           ),
-          Container(
-            padding: EdgeInsets.all(15),
-            child: Wrap(
-              // Do it for setState()
-              children: this._deviceList.map((item) {
-                index++;
-                return _item(item, index);
-              }).toList(),
-            ),
-          )
+          this._deviceList.length != 0
+              ? Container(
+                  padding: EdgeInsets.all(15),
+                  child: Wrap(
+                    // Do it for setState()
+                    children: this._deviceList.map((item) {
+                      index++;
+                      return _item(index);
+                    }).toList(),
+                  ),
+                )
+              : CircularProgressIndicator()
         ],
       ),
     );
@@ -124,6 +133,11 @@ class _DeviceState extends State<DeviceScreen> {
                 if (snapshot.hasData) {
                   DeviceModel.State state = snapshot.data;
                   if (state.code == 200) {
+                    this._loadingList.add(Text(''));
+                    this._loadingList.add(Text(''));
+                    this._loadingList.add(Text(''));
+                    this._loadingList.add(Text(''));
+
                     if (state.devices.lights.light_1 == '1')
                       this._colorList.add(this._on);
                     else
