@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:o2_mobile/blocs/DeviceBloC.dart';
+import 'package:o2_mobile/business/DeviceControlProvider.dart';
 import 'package:o2_mobile/ui/ThemseColors.dart';
 import 'package:o2_mobile/models/DeviceModel.dart' as DeviceModel;
 
@@ -31,18 +32,42 @@ class _DeviceState extends State<DeviceScreen> {
             color: this._colorList[index],
             borderRadius: BorderRadius.all(Radius.circular(50))),
         child: InkWell(
-          onTap: () {
+          onTap: () async {
             setState(() {
               this._loadingList[index] = CircularProgressIndicator(
                 backgroundColor: Colors.white,
               );
             });
-            /*
-            if (this._colorList[index] == this._on)
-                this._colorList[index] = this._off;
-              else
-                this._colorList[index] = this._on;
-            */
+            print('Switching ' +
+                _deviceList[index]
+                    .substring(0, this._deviceList[index].length - 1)
+                    .toLowerCase() +
+                '_1');
+            DeviceModel.Switch _switch = await deviceControlProvider.switch_(
+                this
+                        ._deviceList[index]
+                        .substring(0, this._deviceList[index].length - 1)
+                        .toLowerCase() +
+                    '_1',
+                this._colorList[index] == this._on ? '0' : '1');
+            if (_switch != null && _switch.code == 200) {
+              print('Switched ' +
+                  _deviceList[index]
+                      .substring(0, this._deviceList[index].length - 1)
+                      .toLowerCase() +
+                  '_1');
+              setState(() {
+                this._loadingList[index] = Text('');
+                if (this._colorList[index] == this._on)
+                  this._colorList[index] = this._off;
+                else
+                  this._colorList[index] = this._on;
+              });
+            } else {
+              setState(() {
+                this._loadingList[index] = Text('');
+              });
+            }
           },
           child: FittedBox(
             fit: BoxFit.scaleDown,
@@ -50,7 +75,8 @@ class _DeviceState extends State<DeviceScreen> {
                 child: Stack(
               children: <Widget>[
                 Text(
-                  this._deviceList[index],
+                  this._deviceList[index][0].toUpperCase() +
+                      this._deviceList[index].substring(1),
                   style: TextStyle(color: Colors.white),
                 ),
                 this._loadingList[index]
@@ -97,7 +123,9 @@ class _DeviceState extends State<DeviceScreen> {
                     }).toList(),
                   ),
                 )
-              : CircularProgressIndicator()
+              : Container(
+                  child: CircularProgressIndicator(),
+                )
         ],
       ),
     );
@@ -159,18 +187,46 @@ class _DeviceState extends State<DeviceScreen> {
                       this._colorList.add(this._off);
                     // Clear and add again for function setState()
                     this._deviceList.clear();
-                    this
-                        ._deviceList
-                        .add(state.devices.lights.runtimeType.toString());
-                    this
-                        ._deviceList
-                        .add(state.devices.fans.runtimeType.toString());
-                    this
-                        ._deviceList
-                        .add(state.devices.awnings.runtimeType.toString());
-                    this
-                        ._deviceList
-                        .add(state.devices.pumps.runtimeType.toString());
+                    this._deviceList.add(state.devices.lights.runtimeType
+                            .toString()
+                            .substring(
+                                0,
+                                state.devices.lights.runtimeType
+                                        .toString()
+                                        .length -
+                                    1)
+                            .toLowerCase() +
+                        ' 1');
+                    this._deviceList.add(state.devices.fans.runtimeType
+                            .toString()
+                            .substring(
+                                0,
+                                state.devices.fans.runtimeType
+                                        .toString()
+                                        .length -
+                                    1)
+                            .toLowerCase() +
+                        ' 1');
+                    this._deviceList.add(state.devices.awnings.runtimeType
+                            .toString()
+                            .substring(
+                                0,
+                                state.devices.awnings.runtimeType
+                                        .toString()
+                                        .length -
+                                    1)
+                            .toLowerCase() +
+                        ' 1');
+                    this._deviceList.add(state.devices.pumps.runtimeType
+                            .toString()
+                            .substring(
+                                0,
+                                state.devices.pumps.runtimeType
+                                        .toString()
+                                        .length -
+                                    1)
+                            .toLowerCase() +
+                        ' 1');
 
                     return _place();
                   }
