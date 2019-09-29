@@ -54,7 +54,6 @@ class _DeviceState extends State<DeviceScreen> {
                 this._colorList[index] = this._on;
             });
           } else {
-            print(_switch.code);
             setState(() {
               this._loadingList[index] = Text('');
             });
