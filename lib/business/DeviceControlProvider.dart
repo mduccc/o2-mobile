@@ -25,7 +25,7 @@ class DeviceControlProvider {
     }
   }
 
-  Future<Switch> _switch(String sensor_name, String _switch) async {
+  Future<Switch> switch_(String device_name, String _switch) async {
     try {
       await databaseProvider.openOrCreate();
 
@@ -35,7 +35,8 @@ class DeviceControlProvider {
           },
           body: json.encode({
             'token': await databaseProvider.getToken(),
-            'sensor_name': _switch
+            'device_name': device_name,
+            'switch': _switch
           }));
       return Switch.fromJson(json.decode(response.body));
     } catch (err) {
