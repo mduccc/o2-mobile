@@ -103,7 +103,7 @@ class _DeviceState extends State<DeviceScreen> {
               fit: BoxFit.scaleDown,
               alignment: FractionalOffset.centerLeft,
               child: Text(
-                this._place_name,
+                'Devices in ' + this._place_name,
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,

@@ -39,7 +39,7 @@ class _AQICurrentState extends State<AQICurrent> {
                     flex: 1,
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      alignment: FractionalOffset.bottomCenter,
+                      alignment: FractionalOffset.center,
                       child: Text('AQI Current',
                           style: TextStyle(
                               color: Colors.white,
@@ -52,7 +52,7 @@ class _AQICurrentState extends State<AQICurrent> {
                     flex: 1,
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
-                      alignment: FractionalOffset.topCenter,
+                      alignment: FractionalOffset.center,
                       child: Text(aqiQuality,
                           style: TextStyle(
                               color: Colors.white,
