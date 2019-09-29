@@ -25,7 +25,7 @@ class _ChartState extends State<ChartFrag> {
       dotData: FlDotData(
         show: true,
         dotColor: dotColor,
-        dotSize: 0.8,
+        dotSize: 0,
       ),
       isCurved: false,
       // Put data here
@@ -144,7 +144,7 @@ class _ChartState extends State<ChartFrag> {
     List<FlSpot> limit3 = List();
     List<FlSpot> limit4 = List();
     List<FlSpot> limit5 = List();
-    int maxLength = 48;
+    int maxLength = 30;
     int index = -1;
     // for draw limit
     dynamic minX = false;
@@ -209,7 +209,7 @@ class _ChartState extends State<ChartFrag> {
                       fit: BoxFit.scaleDown,
                       alignment: FractionalOffset.centerLeft,
                       child: Text(
-                        'For last 4 hours',
+                        'Last times',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w200,
