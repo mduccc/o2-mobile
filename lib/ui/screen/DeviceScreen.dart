@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:o2_mobile/blocs/DeviceBloC.dart';
 import 'package:o2_mobile/ui/ThemseColors.dart';
+import 'package:o2_mobile/models/DeviceModel.dart' as DeviceModel;
 
 class DeviceScreen extends StatefulWidget {
   String _place_name;
@@ -80,6 +82,7 @@ class _DeviceState extends State<DeviceScreen> {
           Container(
             padding: EdgeInsets.all(15),
             child: Wrap(
+              // Do it for setState()
               children: this._deviceList.map((item) {
                 index++;
                 return _item(item, index);
@@ -94,18 +97,7 @@ class _DeviceState extends State<DeviceScreen> {
   @override
   void initState() {
     super.initState();
-
-    this._colorList.add(this._on);
-    this._colorList.add(this._off);
-    this._colorList.add(this._off);
-    this._colorList.add(this._off);
-
-    // Clear and add again for function setState()
-    this._deviceList.clear();
-    this._deviceList.add('Light');
-    this._deviceList.add('Fan');
-    this._deviceList.add('Pump');
-    this._deviceList.add('Awning');
+    deviceBloC.loadState();
   }
 
   @override
@@ -124,7 +116,57 @@ class _DeviceState extends State<DeviceScreen> {
       ),
       backgroundColor: ThemseColors.primaryColor,
       body: Column(
-        children: <Widget>[_place()],
+        children: <Widget>[
+          StreamBuilder(
+            stream: devicePushlishSubject.stream,
+            builder: (context, snapshot) {
+              if (!snapshot.hasError) {
+                if (snapshot.hasData) {
+                  DeviceModel.State state = snapshot.data;
+                  if (state.code == 200) {
+                    if (state.devices.lights.light_1 == '1')
+                      this._colorList.add(this._on);
+                    else
+                      this._colorList.add(this._off);
+
+                    if (state.devices.fans.fan_1 == '1')
+                      this._colorList.add(this._on);
+                    else
+                      this._colorList.add(this._off);
+
+                    if (state.devices.awnings.awning_1 == '1')
+                      this._colorList.add(this._on);
+                    else
+                      this._colorList.add(this._off);
+
+                    if (state.devices.pumps.pump_1 == '1')
+                      this._colorList.add(this._on);
+                    else
+                      this._colorList.add(this._off);
+                    // Clear and add again for function setState()
+                    this._deviceList.clear();
+                    this
+                        ._deviceList
+                        .add(state.devices.lights.runtimeType.toString());
+                    this
+                        ._deviceList
+                        .add(state.devices.fans.runtimeType.toString());
+                    this
+                        ._deviceList
+                        .add(state.devices.awnings.runtimeType.toString());
+                    this
+                        ._deviceList
+                        .add(state.devices.pumps.runtimeType.toString());
+
+                    return _place();
+                  }
+                }
+              }
+
+              return _place();
+            },
+          )
+        ],
       ),
     );
   }

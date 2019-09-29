@@ -13,11 +13,12 @@ class DeviceControlProvider {
     try {
       await databaseProvider.openOrCreate();
 
-      http.Response response = await this._client.post(EndPoint.sensorState,
+      http.Response response = await this._client.post(EndPoint.deviceState,
           headers: {
             'content-type': 'application/json',
           },
-          body: json.encode({'token': databaseProvider.getToken()}));
+          body: json.encode({'token': await databaseProvider.getToken()}));
+      print('response: ' + json.decode(response.body).toString());
       return State.fromJson(json.decode(response.body));
     } catch (err) {
       print(err);
@@ -29,12 +30,14 @@ class DeviceControlProvider {
     try {
       await databaseProvider.openOrCreate();
 
-      http.Response response = await this._client.post(EndPoint.sensorSwitch,
+      http.Response response = await this._client.post(EndPoint.deviceSwitch,
           headers: {
             'content-type': 'application/json',
           },
-          body: json.encode(
-              {'token': databaseProvider.getToken(), 'sensor_name': _switch}));
+          body: json.encode({
+            'token': await databaseProvider.getToken(),
+            'sensor_name': _switch
+          }));
       return Switch.fromJson(json.decode(response.body));
     } catch (err) {
       print(err);
@@ -42,3 +45,5 @@ class DeviceControlProvider {
     }
   }
 }
+
+final deviceControlProvider = DeviceControlProvider();

@@ -37,25 +37,15 @@ class Lights {
 }
 
 class Devices {
-  int code;
-  String message;
   Pumps pumps;
   Awnings awnings;
   Fans fans;
   Lights lights;
 
-  Devices(
-      {this.pumps,
-      this.awnings,
-      this.fans,
-      this.lights,
-      this.code,
-      this.message});
+  Devices({this.pumps, this.awnings, this.fans, this.lights});
 
   factory Devices.fromJson(Map<String, dynamic> json) {
     return Devices(
-        code: json['code'],
-        message: json['message'],
         pumps: json['pumps'],
         awnings: json['awnigns'],
         fans: json['fans'],
