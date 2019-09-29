@@ -70,7 +70,9 @@ class _DeviceState extends State<DeviceScreen> {
                       this._deviceList[index].substring(1),
                   style: TextStyle(color: Colors.white),
                 ),
-                this._loadingList[index]
+                Container(
+                  child: this._loadingList[index],
+                )
               ],
             )),
           ),
