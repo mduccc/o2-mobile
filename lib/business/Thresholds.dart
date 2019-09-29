@@ -35,11 +35,11 @@ class Thresholds {
   static String uv(double value) {
     String message = '';
 
-    if (value >= 0 && value < 65) message = Thresholds.safe;
-    if (value >= 65 && value < 147) message = Thresholds.medium;
-    if (value >= 147 && value < 195) message = Thresholds.high;
-    if (value >= 195 && value < 260) message = Thresholds.veryhight;
-    if (value >= 260) message = Thresholds.extreme;
+    if (value >= 0 && value < 50) message = Thresholds.safe;
+    if (value >= 50 && value < 125) message = Thresholds.medium;
+    if (value >= 125 && value < 175) message = Thresholds.high;
+    if (value >= 175 && value < 250) message = Thresholds.veryhight;
+    if (value >= 250) message = Thresholds.extreme;
 
     return message;
   }
@@ -61,12 +61,12 @@ class Thresholds {
   static String co(double value) {
     String message = '';
 
-    if (value >= 0 && value < 2.62) message = Thresholds.safe;
-    if (value >= 2.62 && value < 4.37) message = Thresholds.normal;
-    if (value >= 4.37 && value < 6.11) message = Thresholds.medium;
-    if (value >= 6.11 && value < 8.73) message = Thresholds.high;
-    if (value >= 8.73 && value < 13.11) message = Thresholds.veryhight;
-    if (value >= 13.11) message = Thresholds.extreme;
+    if (value >= 0 && value < 3) message = Thresholds.safe;
+    if (value >= 3 && value < 7) message = Thresholds.normal;
+    if (value >= 7 && value < 15) message = Thresholds.medium;
+    if (value >= 15 && value < 30) message = Thresholds.high;
+    if (value >= 30 && value < 62) message = Thresholds.veryhight;
+    if (value >= 62) message = Thresholds.extreme;
 
     return message;
   }
