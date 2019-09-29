@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class Pumps {
   String pump_1;
 
@@ -46,10 +44,10 @@ class Devices {
 
   factory Devices.fromJson(Map<String, dynamic> json) {
     return Devices(
-        pumps: json['pumps'],
-        awnings: json['awnigns'],
-        fans: json['fans'],
-        lights: json['lights']);
+        pumps: Pumps.fromJson(json['pumps']),
+        awnings: Awnings.fromJson(json['awnings']),
+        fans: Fans.fromJson(json['fans']),
+        lights: Lights.fromJson(json['lights']));
   }
 }
 
@@ -64,7 +62,7 @@ class State {
     return State(
       code: json['code'],
       message: json['message'],
-      devices: json['devices'],
+      devices: Devices.fromJson(json['devices']),
     );
   }
 }

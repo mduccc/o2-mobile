@@ -160,7 +160,8 @@ class _DeviceState extends State<DeviceScreen> {
 
                     return _place();
                   }
-                }
+                } else
+                  print(snapshot.error);
               }
 
               return _place();

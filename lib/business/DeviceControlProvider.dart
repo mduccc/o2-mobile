@@ -18,7 +18,6 @@ class DeviceControlProvider {
             'content-type': 'application/json',
           },
           body: json.encode({'token': await databaseProvider.getToken()}));
-      print('response: ' + json.decode(response.body).toString());
       return State.fromJson(json.decode(response.body));
     } catch (err) {
       print(err);

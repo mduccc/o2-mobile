@@ -6,7 +6,6 @@ final devicePushlishSubject = PublishSubject<State>();
 
 class DeviceBloC {
   Future loadState() async {
-    print('hahaha');
     State state = await deviceControlProvider.state();
     devicePushlishSubject.add(state);
   }
