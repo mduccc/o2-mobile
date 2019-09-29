@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Align(
                           alignment: FractionalOffset.bottomCenter,
                           child: Text(
-                            'Login',
+                            'Air monitor',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 22,
@@ -197,7 +197,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   fontWeight: FontWeight.bold),
                                             ),
                                           ),
-                                          color: Color(0xff9c4dcc),
+                                          color: Colors.blueAccent,
                                           textColor: ThemseColors.primaryColor,
                                           shape: RoundedRectangleBorder(
                                               borderRadius:
