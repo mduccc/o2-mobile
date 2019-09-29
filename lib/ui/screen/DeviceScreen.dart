@@ -39,23 +39,13 @@ class _DeviceState extends State<DeviceScreen> {
               );
             });
             print('Switching ' +
-                _deviceList[index]
-                    .substring(0, this._deviceList[index].length - 1)
-                    .toLowerCase() +
-                '_1');
+                this._deviceList[index].toLowerCase().replaceAll(' ', '_'));
             DeviceModel.Switch _switch = await deviceControlProvider.switch_(
-                this
-                        ._deviceList[index]
-                        .substring(0, this._deviceList[index].length - 1)
-                        .toLowerCase() +
-                    '_1',
+                this._deviceList[index].toLowerCase().replaceAll(' ', '_'),
                 this._colorList[index] == this._on ? '0' : '1');
             if (_switch != null && _switch.code == 200) {
               print('Switched ' +
-                  _deviceList[index]
-                      .substring(0, this._deviceList[index].length - 1)
-                      .toLowerCase() +
-                  '_1');
+                  this._deviceList[index].toLowerCase().replaceAll(' ', '_'));
               setState(() {
                 this._loadingList[index] = Text('');
                 if (this._colorList[index] == this._on)
@@ -64,6 +54,7 @@ class _DeviceState extends State<DeviceScreen> {
                   this._colorList[index] = this._on;
               });
             } else {
+              print(_switch.code);
               setState(() {
                 this._loadingList[index] = Text('');
               });
