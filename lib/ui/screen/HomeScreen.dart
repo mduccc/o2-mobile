@@ -55,6 +55,7 @@ class _MyHomeScreenState extends State<HomeScreen> {
         // Try call function from Kotlin
         String reply = await this._channel.send('Sent from Dart');
         print(reply);
+        // Try call function from Kotlin with Json
         await this
             ._serviceBackgroudChannel
             .send(json.encode({'title': 'Hello', 'content': 'Hello you'}));
