@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:o2_mobile/blocs/AirBloC.dart';
@@ -10,6 +12,7 @@ import 'package:o2_mobile/ui/fragment/AQICurrent.dart';
 import 'package:o2_mobile/ui/fragment/BottomSheet.dart' as custom;
 import 'package:o2_mobile/ui/fragment/Chart.dart';
 import 'package:o2_mobile/ui/fragment/HomeHeader.dart';
+import 'dart:io' show Platform;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -20,6 +23,8 @@ class HomeScreen extends StatefulWidget {
 
 class _MyHomeScreenState extends State<HomeScreen> {
   final _channel = BasicMessageChannel<String>('cross', StringCodec());
+  final _serviceBackgroudChannel =
+      BasicMessageChannel<dynamic>('backgroundService', JSONMessageCodec());
   double _height;
   double _width;
   GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -44,9 +49,19 @@ class _MyHomeScreenState extends State<HomeScreen> {
           }
         });
       }
-      // Try call function from Kotlin
-      String reply =  await this._channel.send("Sent from Dart");
-      print(reply);
+
+      // For Android
+      if (Platform.isAndroid) {
+        // Try call function from Kotlin
+        String reply = await this._channel.send('Sent from Dart');
+        print(reply);
+        await this
+            ._serviceBackgroudChannel
+            .send(json.encode({'title': 'Hello', 'content': 'Hello you'}));
+      }
+
+      // For IOS
+      if (Platform.isIOS) {}
     });
   }
 
