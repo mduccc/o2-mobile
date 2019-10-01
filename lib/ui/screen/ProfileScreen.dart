@@ -142,11 +142,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             builder: (context, snapshot) {
               if (!snapshot.hasError) {
                 if (snapshot.hasData) {
-                  AccModel accModel = snapshot.data;
+                  this._accModel = snapshot.data;
                   return Column(
                     children: <Widget>[
-                      this._item('Email', accModel.email),
-                      this._item('Place', accModel.place_name),
+                      this._item('Email', this._accModel.email),
+                      this._item('Place', this._accModel.place_name),
                     ],
                   );
                 }
