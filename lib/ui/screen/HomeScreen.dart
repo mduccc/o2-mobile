@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:o2_mobile/blocs/AirBloC.dart';
 import 'package:o2_mobile/blocs/LoginBloC.dart';
 import 'package:o2_mobile/blocs/SocketBLoC.dart';
@@ -18,6 +19,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MyHomeScreenState extends State<HomeScreen> {
+  final _channel = BasicMessageChannel<String>('cross', StringCodec());
   double _height;
   double _width;
   GlobalKey _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -31,7 +33,7 @@ class _MyHomeScreenState extends State<HomeScreen> {
     airBloC.loadAirCurrent();
 
     // Registe to socket
-    socketBLoC.connect().then((_) {
+    socketBLoC.connect().then((_) async {
       socketBLoC.onConnect();
       socketBLoC.onNotify();
       if (socketBLoC.token != null) {
@@ -42,6 +44,9 @@ class _MyHomeScreenState extends State<HomeScreen> {
           }
         });
       }
+      // Try call function from Kotlin
+      String reply =  await this._channel.send("Sent from Dart");
+      print(reply);
     });
   }
 

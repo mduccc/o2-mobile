@@ -25,7 +25,7 @@ class _ChartState extends State<ChartFrag> {
       dotData: FlDotData(
         show: true,
         dotColor: dotColor,
-        dotSize: 0,
+        dotSize: 0.8,
       ),
       isCurved: false,
       // Put data here
@@ -42,10 +42,10 @@ class _ChartState extends State<ChartFrag> {
 
   Widget _chart(List<FlSpot> input,
       [List<FlSpot> limit,
-      List<FlSpot> limit2,
-      List<FlSpot> limit3,
-      List<FlSpot> limit4,
-      List<FlSpot> limit5]) {
+        List<FlSpot> limit2,
+        List<FlSpot> limit3,
+        List<FlSpot> limit4,
+        List<FlSpot> limit5]) {
     return FlChart(
       chart: LineChart(
         LineChartData(
@@ -111,27 +111,27 @@ class _ChartState extends State<ChartFrag> {
             lineBarsData: [
               input == null
                   ? _drawChart(
-                      [FlSpot(0, 0), FlSpot(1, 1)],
-                      Colors.white.withOpacity(0.0),
-                      Colors.white.withOpacity(0.0),
-                      1)
+                  [FlSpot(0, 0), FlSpot(1, 1)],
+                  Colors.white.withOpacity(0.0),
+                  Colors.white.withOpacity(0.0),
+                  1)
                   : _drawChart(input, Colors.white, Colors.white, 0.5),
               limit == null
                   ? _drawChart(
-                      [FlSpot(0, 0), FlSpot(1, 1)],
-                      Colors.white.withOpacity(0.0),
-                      Colors.white.withOpacity(0.0),
-                      1)
+                  [FlSpot(0, 0), FlSpot(1, 1)],
+                  Colors.white.withOpacity(0.0),
+                  Colors.white.withOpacity(0.0),
+                  1)
                   : _drawChart(limit, Colors.yellow.withOpacity(0.8),
-                      Colors.transparent, 0.2),
+                  Colors.transparent, 0.2),
               limit2 == null
                   ? _drawChart(
-                      [FlSpot(0, 0), FlSpot(1, 1)],
-                      Colors.white.withOpacity(0.0),
-                      Colors.white.withOpacity(0.0),
-                      1)
+                  [FlSpot(0, 0), FlSpot(1, 1)],
+                  Colors.white.withOpacity(0.0),
+                  Colors.white.withOpacity(0.0),
+                  1)
                   : _drawChart(limit2, Colors.red.withOpacity(0.8),
-                      Colors.transparent, 0.2)
+                  Colors.transparent, 0.2)
             ]),
       ),
     );
@@ -144,7 +144,7 @@ class _ChartState extends State<ChartFrag> {
     List<FlSpot> limit3 = List();
     List<FlSpot> limit4 = List();
     List<FlSpot> limit5 = List();
-    int maxLength = 30;
+    int maxLength = 48;
     int index = -1;
     // for draw limit
     dynamic minX = false;
@@ -209,7 +209,7 @@ class _ChartState extends State<ChartFrag> {
                       fit: BoxFit.scaleDown,
                       alignment: FractionalOffset.centerLeft,
                       child: Text(
-                        'Last times',
+                        'For last 4 hours',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w200,
