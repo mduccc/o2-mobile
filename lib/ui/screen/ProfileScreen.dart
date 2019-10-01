@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:o2_mobile/blocs/LoginBloC.dart';
+import 'package:o2_mobile/business/Channel.dart';
 import 'package:o2_mobile/business/DatabaseProvider.dart';
 import 'package:o2_mobile/business/LogoutProvider.dart';
 import 'package:o2_mobile/models/AccModel.dart';
@@ -9,6 +12,7 @@ import 'package:o2_mobile/ui/ThemseColors.dart';
 import 'package:o2_mobile/ui/screen/DeviceScreen.dart';
 import 'package:o2_mobile/ui/screen/LoginScreen.dart';
 import 'package:toast/toast.dart';
+import 'dart:io' show Platform;
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -186,6 +190,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Navigator.of(context).pushAndRemoveUntil(
                       MaterialPageRoute(builder: (context) => LoginScreen()),
                       (Route<dynamic> route) => false);
+
+                  // For Android
+                  if (Platform.isAndroid) {
+                    // Try call function from Kotlin with Json
+                    await serviceBackgroudChannel.send(json.encode({
+                      'command': 'stop_service',
+                      'description': 'Stop Service'
+                    }));
+                  }
+
+                  // For IOS
+                  if (Platform.isIOS) {}
 
                   notify('Logged out', Colors.green);
                 } else {

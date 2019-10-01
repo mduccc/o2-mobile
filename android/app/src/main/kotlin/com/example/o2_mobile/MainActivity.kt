@@ -29,12 +29,20 @@ class MainActivity : FlutterActivity() {
 
         // Receive a json from Dart
         backgroundChannel.setMessageHandler { any, _ ->
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                applicationContext.startForegroundService(Intent(this, AppService::class.java))
-            else
-                applicationContext.startService(Intent(this, AppService::class.java))
             val jsonFromString = JSONObject(any.toString())
-            Log.d("Sent from Dart", jsonFromString.get("title").toString())
+            Log.d("Sent from Dart", jsonFromString.get("command").toString())
+
+            when (jsonFromString.get("command").toString()) {
+                "start_service" -> {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
+                        applicationContext.startForegroundService(Intent(this, AppService::class.java))
+                    else
+                        applicationContext.startService(Intent(this, AppService::class.java))
+                }
+                "stop_service" -> {
+                    applicationContext.stopService(Intent(this, AppService::class.java))
+                }
+            }
         }
 
 
