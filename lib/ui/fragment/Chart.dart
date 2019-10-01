@@ -25,7 +25,7 @@ class _ChartState extends State<ChartFrag> {
       dotData: FlDotData(
         show: true,
         dotColor: dotColor,
-        dotSize: 0,
+        dotSize: 2,
       ),
       isCurved: false,
       // Put data here
@@ -115,23 +115,21 @@ class _ChartState extends State<ChartFrag> {
                       Colors.white.withOpacity(0.0),
                       Colors.white.withOpacity(0.0),
                       1)
-                  : _drawChart(input, Colors.white, Colors.white, 0.5),
+                  : _drawChart(input, Colors.white, Colors.white, 1),
               limit == null
                   ? _drawChart(
                       [FlSpot(0, 0), FlSpot(1, 1)],
                       Colors.white.withOpacity(0.0),
                       Colors.white.withOpacity(0.0),
                       1)
-                  : _drawChart(limit, Colors.yellow.withOpacity(0.8),
-                      Colors.transparent, 0.2),
+                  : _drawChart(limit, Colors.yellow, Colors.transparent, 0.2),
               limit2 == null
                   ? _drawChart(
                       [FlSpot(0, 0), FlSpot(1, 1)],
                       Colors.white.withOpacity(0.0),
                       Colors.white.withOpacity(0.0),
                       1)
-                  : _drawChart(limit2, Colors.red.withOpacity(0.8),
-                      Colors.transparent, 0.2)
+                  : _drawChart(limit2, Colors.red, Colors.transparent, 0.2)
             ]),
       ),
     );
@@ -144,7 +142,7 @@ class _ChartState extends State<ChartFrag> {
     List<FlSpot> limit3 = List();
     List<FlSpot> limit4 = List();
     List<FlSpot> limit5 = List();
-    int maxLength = 30;
+    int maxLength = 15;
     int index = -1;
     // for draw limit
     dynamic minX = false;
@@ -212,7 +210,7 @@ class _ChartState extends State<ChartFrag> {
                         'Last times',
                         style: TextStyle(
                             color: Colors.white,
-                            fontWeight: FontWeight.w200,
+                            fontWeight: FontWeight.w400,
                             fontSize: 10),
                       ),
                     ),
@@ -225,7 +223,7 @@ class _ChartState extends State<ChartFrag> {
                         Container(
                           width: this._width / 25,
                           height: 1,
-                          color: Colors.yellow.withOpacity(0.6),
+                          color: Colors.yellow,
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 5, right: 5),
@@ -243,7 +241,7 @@ class _ChartState extends State<ChartFrag> {
                         Container(
                           width: this._width / 25,
                           height: 1,
-                          color: Colors.red.withOpacity(0.6),
+                          color: Colors.red,
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 5, right: 5),
@@ -261,7 +259,7 @@ class _ChartState extends State<ChartFrag> {
                         Container(
                           width: this._width / 25,
                           height: 1,
-                          color: Colors.white.withOpacity(0.6),
+                          color: Colors.white,
                         ),
                         Container(
                           margin: EdgeInsets.only(left: 5, right: 5),
