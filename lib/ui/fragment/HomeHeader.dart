@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:o2_mobile/blocs/AirStream.dart';
 import 'package:o2_mobile/blocs/LoginBloC.dart';
 import 'package:o2_mobile/models/AccModel.dart';
-import 'package:o2_mobile/models/AirModel.dart';
 import 'package:o2_mobile/ui/screen/ProfileScreen.dart';
 
 class HomeHeader extends StatefulWidget {
@@ -35,7 +33,8 @@ class _HomeHeaderState extends State<HomeHeader> {
                           AccModel accModel = snapshot.data;
                           if (accModel.code == 200)
                             return Text(
-                              'Reatime in ' + accModel.place_name,
+                              'Biểu đồ thời gian thực tại ' +
+                                  accModel.place_name,
                               style: TextStyle(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold),

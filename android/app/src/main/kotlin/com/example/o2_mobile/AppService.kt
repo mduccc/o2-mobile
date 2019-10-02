@@ -18,9 +18,6 @@ class AppService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         Log.d("Service", "onStartCommand")
-        // init Context
-        AppContext.context = applicationContext
-
         // get token
         intent?.getStringExtra("token")?.let {
             token = it
@@ -36,6 +33,8 @@ class AppService : Service() {
 
     override fun onCreate() {
         Log.d("Service", "onCreate")
+        // init Context
+        AppContext.context = applicationContext
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
             startForeground(Notification.foregroundNotificationId, Notification.Foreground.builder())

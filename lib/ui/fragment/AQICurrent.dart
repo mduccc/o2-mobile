@@ -40,7 +40,7 @@ class _AQICurrentState extends State<AQICurrent> {
                     child: FittedBox(
                       fit: BoxFit.scaleDown,
                       alignment: FractionalOffset.center,
-                      child: Text('AQI Current',
+                      child: Text('AQI hiện tại ',
                           style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.bold,

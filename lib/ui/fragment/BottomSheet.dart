@@ -177,26 +177,26 @@ class _BottomSheetState extends State<BottomSheet> {
               ),
             )),
         // Temp
-        _airItem('Temperature', tempQuality, temp, HTML.decode('&#176;') + 'C',
+        _airItem('Nhiệt độ', tempQuality, temp, HTML.decode('&#176;') + 'C',
             Colors.blue.withOpacity(0.9), Colors.white),
         // Humidity
-        _airItem('Humidity', humidityQuality, humidity, '%',
+        _airItem('Độ ẩm', humidityQuality, humidity, '%',
             Colors.blue.withOpacity(0.7), Colors.white),
         // Smoke
-        _airItem('Smoke', smokeQuality, smoke, 'ppm',
+        _airItem('Hỗn hợp khí', smokeQuality, smoke, 'ppm',
             Colors.blueAccent.withOpacity(0.9), Colors.white),
         // CO2
         _airItem('CO', coQuality, co, 'ppm',
             Colors.greenAccent.withOpacity(0.6), Colors.white),
         // Dust
-        _airItem('Dust', dustQuality, dust, 'mg/m' + HTML.decode('&#179;'),
+        _airItem('Bụi', dustQuality, dust, 'mg/m' + HTML.decode('&#179;'),
             Colors.blueAccent.withOpacity(0.8), Colors.white),
         // UV
-        _airItem('UV', uvQuality, uv, 'mW/cm' + HTML.decode('&#178;'),
+        _airItem('Tia UV', uvQuality, uv, 'mW/cm' + HTML.decode('&#178;'),
             Colors.lightBlueAccent.withOpacity(0.8), Colors.white),
         // Soil
-        _airItem('Soil', soilQuality, soil, '%', Colors.green.withOpacity(0.9),
-            Colors.white),
+        _airItem('Độ ẩm đất', soilQuality, soil, '%',
+            Colors.green.withOpacity(0.9), Colors.white),
       ],
     );
   }
@@ -208,9 +208,9 @@ class _BottomSheetState extends State<BottomSheet> {
 
     if (airModel != null) {
       if (airModel.places[0].times[0].datas.rain == '1')
-        rain = 'Raining';
+        rain = 'Đang mưa';
       else
-        rain = 'Not raining';
+        rain = 'Không có mưa';
 
       if (airModel.places[0].times[0].datas.gas == '1')
         gas = 'Gas detected';
@@ -218,9 +218,9 @@ class _BottomSheetState extends State<BottomSheet> {
         gas = 'No gas detected';
 
       if (airModel.places[0].times[0].datas.fire == '1')
-        fire = 'Fire detected';
+        fire = 'Có lửa';
       else
-        fire = 'No fire detected';
+        fire = 'Không có lửa';
     }
     return Column(
       children: <Widget>[
@@ -229,7 +229,7 @@ class _BottomSheetState extends State<BottomSheet> {
             child: Container(
               margin: EdgeInsets.only(bottom: 15),
               child: Text(
-                'Happen:',
+                'Ngoài trời:',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

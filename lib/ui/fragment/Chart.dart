@@ -207,7 +207,7 @@ class _ChartState extends State<ChartFrag> {
                       fit: BoxFit.scaleDown,
                       alignment: FractionalOffset.centerLeft,
                       child: Text(
-                        'Last times',
+                        'Thời gian qua',
                         style: TextStyle(
                             color: Colors.white,
                             fontWeight: FontWeight.w400,
@@ -230,7 +230,7 @@ class _ChartState extends State<ChartFrag> {
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              'Warming.',
+                              'Cảnh báo.',
                               style: TextStyle(
                                   color: Colors.yellow,
                                   fontWeight: FontWeight.w200,
@@ -248,7 +248,7 @@ class _ChartState extends State<ChartFrag> {
                           child: FittedBox(
                             fit: BoxFit.scaleDown,
                             child: Text(
-                              'Danger.',
+                              'Nguy hiểm.',
                               style: TextStyle(
                                   color: Colors.red,
                                   fontWeight: FontWeight.w200,

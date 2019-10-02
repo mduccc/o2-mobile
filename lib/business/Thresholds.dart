@@ -1,23 +1,23 @@
 class Thresholds {
-  static final String verybad = 'Very bad';
-  static final String bad = 'Bad';
-  static final String medium = 'Medium';
-  static final String normal = 'Normal';
-  static final String good = 'Good';
-  static final String verygood = 'Very Good';
+  static final String verybad = 'Rất tệ';
+  static final String bad = 'Tệ';
+  static final String normal = 'Bình thường';
+  static final String medium = 'Trung bình';
+  static final String good = 'Tuyệt';
+  static final String verygood = 'Rất tuyệt';
 
-  static final String safe = 'Safe';
-  static final String extreme = 'Extreme';
+  static final String safe = 'An toàn';
+  static final String extreme = 'Cực nguy hiểm';
 
-  static final String verycool = 'Very cool';
-  static final String cool = 'Cool';
-  static final String hot = 'Hot';
-  static final String veryhot = 'Very hot';
+  static final String verycool = 'Rất lạnh';
+  static final String cool = 'Lạnh';
+  static final String hot = 'Nóng';
+  static final String veryhot = 'Rất nóng';
 
-  static final String low = "Low";
-  static final String verylow = "Very low";
-  static final String high = "High";
-  static final String veryhight = 'Very high';
+  static final String low = "Thấp";
+  static final String verylow = "Rất thấp";
+  static final String high = "Cao";
+  static final String veryhight = 'Rất cao';
 
   static String aqi(double value) {
     String message = '';
