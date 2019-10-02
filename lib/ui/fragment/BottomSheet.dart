@@ -205,6 +205,7 @@ class _BottomSheetState extends State<BottomSheet> {
     String rain = '-';
     String gas = '-';
     String fire = '-';
+    Color fireColor = Colors.blue;
 
     if (airModel != null) {
       if (airModel.places[0].times[0].datas.rain == '1')
@@ -217,9 +218,10 @@ class _BottomSheetState extends State<BottomSheet> {
       else
         gas = 'No gas detected';
 
-      if (airModel.places[0].times[0].datas.fire == '1')
+      if (airModel.places[0].times[0].datas.fire == '1') {
         fire = 'Có lửa';
-      else
+        fireColor = Colors.red;
+      } else
         fire = 'Không có lửa';
     }
     return Column(
@@ -289,7 +291,7 @@ class _BottomSheetState extends State<BottomSheet> {
                 margin: EdgeInsets.only(left: 10),
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
-                    color: Colors.blue),
+                    color: fireColor),
                 child: Center(
                     child: FittedBox(
                   fit: BoxFit.scaleDown,
