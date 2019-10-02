@@ -146,7 +146,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   return Column(
                     children: <Widget>[
                       this._item('Email', this._accModel.email),
-                      this._item('Place', this._accModel.place_name),
+                      this._item('Địa điểm', this._accModel.place_name),
                     ],
                   );
                 }
@@ -154,7 +154,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               return Column(
                 children: <Widget>[
                   this._item('Email', '-'),
-                  this._item('Place', '-'),
+                  this._item('Địa điểm', '-'),
                 ],
               );
             }));
@@ -173,7 +173,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Center(
             child: Container(
                 child: InkWell(
-              child: Text('Logout',
+              child: Text('Đăng xuất',
                   style: TextStyle(
                     color: Colors.redAccent,
                     fontWeight: FontWeight.bold,
@@ -203,7 +203,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   // For IOS
                   if (Platform.isIOS) {}
 
-                  notify('Logged out', Colors.green);
+                  notify('Đã đăng xuất', Colors.green);
                 } else {
                   setState(() {
                     this._onLogout = false;
@@ -228,7 +228,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           child: Center(
             child: Container(
                 child: InkWell(
-              child: Text('My Devices',
+              child: Text('Các thiết bị',
                   style: TextStyle(
                     color: Colors.blue,
                     fontWeight: FontWeight.bold,

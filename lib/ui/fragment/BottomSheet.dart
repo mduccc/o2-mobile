@@ -169,7 +169,7 @@ class _BottomSheetState extends State<BottomSheet> {
             child: Container(
               margin: EdgeInsets.only(bottom: 15),
               child: Text(
-                'Air Current: ',
+                'Các chỉ số không khí hiện tại: ',
                 style: TextStyle(
                   color: Colors.white,
                   fontWeight: FontWeight.bold,

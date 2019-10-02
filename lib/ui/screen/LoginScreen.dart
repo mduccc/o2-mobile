@@ -69,7 +69,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         child: Align(
                           alignment: FractionalOffset.bottomCenter,
                           child: Text(
-                            'Air monitor',
+                            'Giám sát chất lượng không khí',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 22,
@@ -124,7 +124,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           maxLines: 1,
                                           decoration: InputDecoration(
                                               border: InputBorder.none,
-                                              hintText: 'Username',
+                                              hintText: 'Tên đăng nhập',
                                               icon: Icon(
                                                 Icons.account_circle,
                                                 color: Colors.white
@@ -162,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           maxLines: 1,
                                           decoration: InputDecoration(
                                               border: InputBorder.none,
-                                              hintText: 'Password',
+                                              hintText: 'Mật khẩu',
                                               icon: Opacity(
                                                 opacity: 0.5,
                                                 child: Image.asset(
@@ -192,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           child: Container(
                                             margin: EdgeInsets.all(15),
                                             child: Text(
-                                              'Go',
+                                              'Bắt đầu',
                                               style: TextStyle(
                                                   fontWeight: FontWeight.bold),
                                             ),
@@ -228,7 +228,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                               // Check login result
                                               if (loginModel != null) {
                                                 if (loginModel.code == 200) {
-                                                  notify(loginModel.message,
+                                                  notify('Đã đăng nhập',
                                                       Colors.green);
 
                                                   // Open DB
@@ -249,8 +249,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                                   // Go to HomeScreen
                                                   goToHomeIfAvailable();
                                                 } else {
-                                                  notify(loginModel.message,
-                                                      Colors.orange);
+                                                  if (loginModel.code == 401)
+                                                    notify(
+                                                        'Sai thông tin đăng nhập',
+                                                        Colors.orange);
+                                                  else
+                                                    notify(loginModel.message,
+                                                        Colors.orange);
                                                   setState(() {
                                                     this._onLogin = false;
                                                   });
@@ -280,7 +285,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Container(
                             margin: EdgeInsets.only(bottom: 15),
                             child: Text(
-                              'No account? Register now',
+                              'Chưa có tài khoản, đăng ký ngay',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.white.withOpacity(0.6),
