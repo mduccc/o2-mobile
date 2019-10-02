@@ -51,8 +51,8 @@ class Thresholds {
     if (value >= 0 && value < 10) message = Thresholds.verylow;
     if (value >= 10 && value < 20) message = Thresholds.low;
     if (value >= 20 && value < 25) message = Thresholds.normal;
-    if (value >= 25 && value < 30) message = Thresholds.high;
-    if (value >= 30 && value < 40) message = Thresholds.veryhight;
+    if (value >= 25 && value < 35) message = Thresholds.high;
+    if (value >= 35 && value < 40) message = Thresholds.veryhight;
     if (value >= 40) message = Thresholds.extreme;
 
     return message;
