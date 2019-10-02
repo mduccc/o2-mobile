@@ -34,31 +34,36 @@ class _MyHomeScreenState extends State<HomeScreen> {
     airBloC.loadAirToday();
     airBloC.loadAirCurrent();
 
-    // Registe to socket
+    // Register to socket
     socketBLoC.connect().then((_) async {
       socketBLoC.onConnect();
       socketBLoC.onNotify();
       if (socketBLoC.token != null) {
+        // Get AccInfo and show on HeaderChart
         loginProvider.info(socketBLoC.token).then((_) {
           if (_ != null && _.code == 200) {
+            // Register to event data change
             socketBLoC.onDataChange(_.place_id);
             accInfoPublishSubject.add(_);
           }
         });
-      }
 
-      // For Android
-      if (Platform.isAndroid) {
-        // Try call function from Kotlin
-        String reply = await channel.send('Sent from Dart');
-        print(reply);
-        // Try call function from Kotlin with Json
-        await serviceBackgroudChannel.send(json.encode(
-            {'command': 'start_service', 'description': 'Start Service'}));
-      }
+        // For Android
+        if (Platform.isAndroid) {
+          // Try call function from Kotlin
+          String reply = await channel.send('Sent from Dart');
+          print(reply);
+          // Try call function from Kotlin with Json
+          await serviceBackgroudChannel.send(json.encode({
+            'command': 'start_service',
+            'description': 'Start Service',
+            'args': {'token': socketBLoC.token}
+          }));
+        }
 
-      // For IOS
-      if (Platform.isIOS) {}
+        // For IOS
+        if (Platform.isIOS) {}
+      }
     });
   }
 
