@@ -9,11 +9,12 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'O2 Tracking',
+      title: 'Air Monitor',
       theme: ThemeData(
         primaryColor: Colors.black,
       ),
-      home: SplashScreen(), // router of MaterialApp will set home page is this Widget
+      home:
+          SplashScreen(), // router of MaterialApp will set home page is this Widget
     );
   }
 }
