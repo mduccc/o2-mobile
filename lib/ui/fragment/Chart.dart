@@ -51,7 +51,6 @@ class _ChartState extends State<ChartFrag> {
         LineChartData(
             minX: input == null ? 0 : input[input.length - 1].copyWith().x,
             maxX: input == null ? 1 : input[0].copyWith().x,
-            minY: 0,
             lineTouchData: LineTouchData(enableNormalTouch: false),
             gridData: FlGridData(
               show: false,
