@@ -21,12 +21,23 @@ class AppService : Service() {
         // get token
         intent?.getStringExtra("token")?.let {
             token = it
+            Log.d("Token from Kotlin", token)
             // init socket
             if (socket == null)
                 socket = Socket()
 
-            // Connect to host
-            socket?.connect()
+            // Connect to host with new Thread
+            object : Thread() {
+                override fun run() {
+                    socket?.connect()
+                    socket?.onNotify()
+                    intent.getStringExtra("place_id")?.let {
+                        Log.d("place_id from Kotlin", it)
+                        socket?.onDataChanged(it)
+                    }
+                    join()
+                }
+            }.start()
         }
         return START_STICKY
     }

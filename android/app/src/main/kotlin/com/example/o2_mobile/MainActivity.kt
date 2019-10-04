@@ -34,7 +34,9 @@ class MainActivity : FlutterActivity() {
             val intent = Intent(this, AppService::class.java)
             val args = JSONObject(jsonFromString.get("args").toString())
             val token = args.getString("token")
+            val place_id = args.getString("place_id")
             intent.putExtra("token", token)
+            intent.putExtra("place_id", place_id)
 
             when (jsonFromString.get("command").toString()) {
                 "start_service" -> {
