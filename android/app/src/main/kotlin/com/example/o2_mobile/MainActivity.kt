@@ -17,6 +17,9 @@ class MainActivity : FlutterActivity() {
         super.onCreate(savedInstanceState)
         GeneratedPluginRegistrant.registerWith(this)
 
+        // init Context
+        AppContext.context = applicationContext
+
         // Create channels
         val channel = BasicMessageChannel<String>(flutterView, "cross", StringCodec.INSTANCE)
         val backgroundChannel = BasicMessageChannel<Any>(flutterView, "backgroundService", JSONMessageCodec.INSTANCE)
@@ -41,10 +44,13 @@ class MainActivity : FlutterActivity() {
                     intent.putExtra("token", token)
                     intent.putExtra("place_id", place_id)
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
-                        applicationContext.startForegroundService(intent)
-                    else
-                        applicationContext.startService(intent)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        if (!ServiceRunning.foregroundServiceIsRunning())
+                            applicationContext.startForegroundService(intent)
+                    } else {
+                        if (!ServiceRunning.foregroundServiceIsRunning())
+                            applicationContext.startService(intent)
+                    }
                 }
                 "stop_service" -> {
                     applicationContext.stopService(intent)

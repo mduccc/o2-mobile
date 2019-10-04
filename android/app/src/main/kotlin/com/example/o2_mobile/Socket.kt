@@ -10,18 +10,17 @@ import org.json.JSONObject
 
 class Socket {
     private val optional = IO.Options()
-    var socket: Socket
+    lateinit var socket: Socket
 
-    init {
+    fun connect() {
         optional.apply {
             query = "token=" + AppService.token
             transports = arrayOf("websocket")
+            reconnection = true
+            timeout = 1000
+            forceNew = true
         }
         socket = IO.socket(EndPoint.domain, optional)
-    }
-
-    fun connect() {
-        socket.connect()
 
         socket.on(Socket.EVENT_CONNECT) {
             Log.d("Socket From BG Service", "Connected")
@@ -42,6 +41,11 @@ class Socket {
         socket.on(Socket.EVENT_CONNECT_TIMEOUT) {
             Log.d("Socket From BG Service", "Connect timeout")
         }
+
+        socket.on(Socket.EVENT_RECONNECT_FAILED) {
+            Log.d("Socket From BG Service", "Connect failed")
+        }
+        socket.connect()
     }
 
     fun onNotify() {
