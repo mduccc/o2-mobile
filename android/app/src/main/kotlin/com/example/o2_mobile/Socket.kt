@@ -1,5 +1,6 @@
 package com.example.o2_mobile
 
+import android.text.Html
 import android.util.Log
 import com.github.nkzawa.socketio.client.IO
 import com.github.nkzawa.socketio.client.Socket
@@ -73,7 +74,7 @@ class Socket {
             val firstTimeValue = firstTimeFromPlace.getString("time")
             val firstTimeData = JSONObject(firstTimeFromPlace.getString("datas"))
 
-            val soild = firstTimeData.getString("soil")
+            val soil = firstTimeData.getString("soil")
             val uv = firstTimeData.getString("uv")
             val smoke = firstTimeData.getString("smoke")
             val fire = firstTimeData.getString("fire")
@@ -83,7 +84,20 @@ class Socket {
             val temp = firstTimeData.getString("temp")
             val humidity = firstTimeData.getString("humidity")
 
-            //
+            // Foreground
+            Notification.Foreground.apply {
+                setParams("Air Monitor", "Thời gian: $firstTimeValue\n" +
+                        " ${Html.fromHtml("&#183;")} " + (if (fire == "1") "CÓ LỬA" else "Không có lửa") + "\n" +
+                        " ${Html.fromHtml("&#183;")} " + (if (rain == "1") "Đang mưa" else "Không mưa") + "\n" +
+                        " ${Html.fromHtml("&#183;")} Nhiệt độ: $temp ${Html.fromHtml("&#176;").toString() + "C"}\n" +
+                        " ${Html.fromHtml("&#183;")} Độ ẩm: $humidity %\n" +
+                        " ${Html.fromHtml("&#183;")} Hỗn hợp khí: $smoke ppm\n" +
+                        " ${Html.fromHtml("&#183;")} CO: $co ppm\n" +
+                        " ${Html.fromHtml("&#183;")} Bụi: $dust ${"mg/m" + Html.fromHtml("&#179;").toString()}\n" +
+                        " ${Html.fromHtml("&#183;")} Tia UV: $uv ${"mW/cm" + Html.fromHtml("&#178;").toString()}\n" +
+                        " ${Html.fromHtml("&#183;")} Độ ẩm đất: $soil %")
+                update()
+            }
 
             // AQI
             if (Validate.isDouble(dust)) {
@@ -114,7 +128,7 @@ class Socket {
                 fire.toDouble().apply {
                     if (this == 1.0) {
                         Notification.PushQuality.apply {
-                            setParams("Fire in $firstPlaceName", "DETECTED FIRE ($firstTimeValue)", Notification.fireNotificationId)
+                            setParams("Lửa tại $firstPlaceName", "CÓ LỬA ($firstTimeValue)", Notification.fireNotificationId)
                             show()
                         }
                     }
@@ -126,7 +140,7 @@ class Socket {
                 rain.toDouble().apply {
                     if (this == 1.0) {
                         Notification.PushQuality.apply {
-                            setParams("Rain tại $firstPlaceName", "Raining ($firstTimeValue)", Notification.rainNotificationId)
+                            setParams("Mưa tại $firstPlaceName", "Đang mưa ($firstTimeValue)", Notification.rainNotificationId)
                             show()
                         }
                     }
@@ -140,7 +154,7 @@ class Socket {
 
                     if (thresholds == Thresholds.high || thresholds == Thresholds.veryhight || thresholds == Thresholds.extreme) {
                         Notification.PushQuality.apply {
-                            setParams("UV tại $firstPlaceName", "${thresholds.toUpperCase()}: ${String.format("%.2f", uv.toDouble())} mW/cm2 ($firstTimeValue)", Notification.uvNotificationId)
+                            setParams("UV tại $firstPlaceName", "${thresholds.toUpperCase()}: ${String.format("%.2f", uv.toDouble())} ${"mW/cm" + Html.fromHtml("&#178;").toString()} ($firstTimeValue)", Notification.uvNotificationId)
                             show()
                         }
                     }

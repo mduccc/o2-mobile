@@ -34,6 +34,13 @@ class Notification {
         private lateinit var foregroundChannel: NotificationChannel
         private lateinit var builder: NotificationCompat.Builder
         private lateinit var notificationManager: NotificationManager
+        private var title = "Air Monitor"
+        private var content = "I'm working"
+
+        fun setParams(title: String, content: String) {
+            this.title = title
+            this.content = content
+        }
 
         // First, create an register a channel
         private fun createForegroundChannel() {
@@ -54,13 +61,23 @@ class Notification {
             builder = NotificationCompat.Builder(AppContext.context!!, foregroundChannelId)
             builder.apply {
                 setSmallIcon(R.drawable.ic_cloud_circle_black_24dp)
-                setContentTitle("Air Monitor")
-                setContentText("I'm working")
+                setContentTitle(title)
+                setContentText(content)
                 setSmallIcon(R.drawable.ic_cloud_circle_black_24dp)
                 setPriority(NotificationCompat.PRIORITY_MIN)
+                setStyle(NotificationCompat.BigTextStyle().bigText(content))
             }
 
             return builder.build()
+        }
+
+        fun update() {
+            AppContext.context?.let {
+                if (title.isNotBlank() || content.isNotBlank()) {
+                    NotificationManagerCompat.from(it)
+                            .notify(foregroundNotificationId, builder())
+                }
+            }
         }
     }
 
