@@ -37,29 +37,34 @@ class _AQICurrentState extends State<AQICurrent> {
                   // Value
                   Expanded(
                     flex: 1,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: FractionalOffset.center,
-                      child: Text('AQI hiện tại ',
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16)),
+                    child: Container(
+                      width: double.infinity,
+                      child: FittedBox(
+                        fit: BoxFit.scaleDown,
+                        alignment: FractionalOffset.bottomCenter,
+                        child: Text('AQI hiện tại ',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16)),
+                      ),
                     ),
                   ),
                   // Quality
                   Expanded(
-                    flex: 1,
-                    child: FittedBox(
-                      fit: BoxFit.scaleDown,
-                      alignment: FractionalOffset.center,
-                      child: Text(aqiQuality,
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.w300,
-                              fontSize: 12)),
-                    ),
-                  )
+                      flex: 1,
+                      child: Container(
+                        width: double.infinity,
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          alignment: FractionalOffset.topCenter,
+                          child: Text(aqiQuality,
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w300,
+                                  fontSize: 12)),
+                        ),
+                      ))
                 ],
               )),
           Expanded(

@@ -25,7 +25,7 @@ class _BottomSheetState extends State<BottomSheet> {
     return Container(
       width: this._width,
       height: 55,
-      margin: EdgeInsets.only(bottom: 15),
+      margin: EdgeInsets.only(bottom: 20),
       padding: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 5),
       decoration: BoxDecoration(
           color: bgColor, borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -245,7 +245,7 @@ class _BottomSheetState extends State<BottomSheet> {
             )),
         Container(
           height: 50,
-          margin: EdgeInsets.only(bottom: 30),
+          margin: EdgeInsets.only(bottom: 60),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.all(Radius.circular(10)),
           ),

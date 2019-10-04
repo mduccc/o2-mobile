@@ -27,7 +27,7 @@ class Notification {
         val qualityChannelId = "quality_channel"
         val qualityChannelName = "Quality"
         val qualityChannelDescription = "Quality Channel"
-        val qualityChannelImportant = NotificationManager.IMPORTANCE_HIGH
+        val qualityChannelImportant = NotificationManager.IMPORTANCE_DEFAULT
     }
 
     object Foreground {
