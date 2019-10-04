@@ -24,10 +24,16 @@ class Notification {
         val uvNotificationId = 6
         val aqiNotificationId = 7
         val coNotificationId = 8
+
         val qualityChannelId = "quality_channel"
         val qualityChannelName = "Quality"
         val qualityChannelDescription = "Quality Channel"
         val qualityChannelImportant = NotificationManager.IMPORTANCE_DEFAULT
+
+        val notifyChannelId = "quality_channel"
+        val notifyChannelName = "Quality"
+        val notifyChannelDescription = "Quality Channel"
+        val notifyChannelImportant = NotificationManager.IMPORTANCE_HIGH
     }
 
     object Foreground {
@@ -50,7 +56,7 @@ class Notification {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 foregroundChannel = NotificationChannel(foregroundChannelId, foregroundChannelName, foregroundChannelImportant)
                 foregroundChannel.description = foregroundChannelDescription
-                foregroundChannel.setShowBadge(false)
+                foregroundChannel.setShowBadge(true)
                 notificationManager.createNotificationChannel(foregroundChannel)
             }
         }
@@ -60,10 +66,10 @@ class Notification {
             createForegroundChannel()
             builder = NotificationCompat.Builder(AppContext.context!!, foregroundChannelId)
             builder.apply {
-                setSmallIcon(R.drawable.ic_cloud_circle_black_24dp)
+                setSmallIcon(R.drawable.ic_timeline_24dp)
                 setContentTitle(title)
                 setContentText(content)
-                setSmallIcon(R.drawable.ic_cloud_circle_black_24dp)
+                setSmallIcon(R.drawable.ic_timeline_24dp)
                 setPriority(NotificationCompat.PRIORITY_MIN)
                 setStyle(NotificationCompat.BigTextStyle().bigText(content))
             }
@@ -96,8 +102,8 @@ class Notification {
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 qualityChannel = NotificationChannel(qualityChannelId, qualityChannelName, qualityChannelImportant)
-                qualityChannel.description = foregroundChannelDescription
-                qualityChannel.setShowBadge(false)
+                qualityChannel.description = qualityChannelDescription
+                qualityChannel.setShowBadge(true)
                 notificationManager.createNotificationChannel(qualityChannel)
             }
         }
@@ -146,9 +152,9 @@ class Notification {
                     AppContext.context!!.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                notifyChannel = NotificationChannel(qualityChannelId, qualityChannelName, qualityChannelImportant)
-                notifyChannel.description = foregroundChannelDescription
-                notifyChannel.setShowBadge(false)
+                notifyChannel = NotificationChannel(notifyChannelId, notifyChannelName, notifyChannelImportant)
+                notifyChannel.description = notifyChannelDescription
+                notifyChannel.setShowBadge(true)
                 notificationManager.createNotificationChannel(notifyChannel)
             }
         }
@@ -161,7 +167,7 @@ class Notification {
         // Second, create a notification with a channel via channel id
         private fun builder(): Notification {
             createForegroundChannel()
-            builder = NotificationCompat.Builder(AppContext.context!!, qualityChannelId)
+            builder = NotificationCompat.Builder(AppContext.context!!, notifyChannelId)
             builder.apply {
                 setSmallIcon(R.drawable.ic_message_24dp)
                 setContentTitle(title)

@@ -53,8 +53,9 @@ class _SplashScreenState extends State<SplashScreen> {
           height: double.infinity,
           color: Color(0xff121212),
           child: Icon(
-            Icons.cloud,
+            Icons.timeline,
             color: Colors.white,
+            size: 50,
           ),
         ),
       ),
