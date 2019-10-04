@@ -42,9 +42,15 @@ class Socket {
     }
 
     fun onNotify() {
-        val eventName = "notify"
-        socket.on(eventName) {
-            Log.d("Socket From BG Service", it[0].toString())
+        socket.on("notify") {
+            val message = it[0].toString()
+            Log.d("Socket From BG Service", message)
+            if (message.isNotBlank()) {
+                Notification.Notify.apply {
+                    setParams("Message", message)
+                    show()
+                }
+            }
         }
     }
 
@@ -65,7 +71,7 @@ class Socket {
             val firstTimeFromPlace = reverse(firstPlace.getJSONArray("times")).getJSONObject(0)
 
             val firstTimeValue = firstTimeFromPlace.getString("time")
-            val firstTimeData = JSONObject(firstTimeFromPlace.getString("dates"))
+            val firstTimeData = JSONObject(firstTimeFromPlace.getString("datas"))
 
             val soild = firstTimeData.getString("soil")
             val uv = firstTimeData.getString("uv")
@@ -77,6 +83,8 @@ class Socket {
             val temp = firstTimeData.getString("temp")
             val humidity = firstTimeData.getString("humidity")
 
+            //
+
             // AQI
             if (Validate.isDouble(dust)) {
                 var aqi: Double
@@ -86,11 +94,15 @@ class Socket {
                     else
                         ((this / 1024) - 0.0356) * 120000 * 0.035
 
+                    aqi = String.format("%.2f", aqi).toDouble()
+
                     val thresholds = Thresholds.aqi(aqi)
 
                     if (thresholds == Thresholds.bad || thresholds == Thresholds.extreme) {
-                        Notification.PushqQuality.apply {
-                            setParams("AQI in $firstPlaceName", "$thresholds ($firstTimeValue)", Notification.aqiNotificationId)
+                        Log.d("Dust from Kotlin", this.toString())
+                        Log.d("AQI from Kotlin", aqi.toString())
+                        Notification.PushQuality.apply {
+                            setParams("AQI tại $firstPlaceName", "${thresholds.toUpperCase()}: $aqi ($firstTimeValue)", Notification.aqiNotificationId)
                             show()
                         }
                     }
@@ -101,8 +113,8 @@ class Socket {
             if (Validate.isDouble(fire)) {
                 fire.toDouble().apply {
                     if (this == 1.0) {
-                        Notification.PushqQuality.apply {
-                            setParams("Fire in $firstPlaceName", "Detected Fire ($firstTimeValue)", Notification.fireNotificationId)
+                        Notification.PushQuality.apply {
+                            setParams("Fire in $firstPlaceName", "DETECTED FIRE ($firstTimeValue)", Notification.fireNotificationId)
                             show()
                         }
                     }
@@ -113,8 +125,8 @@ class Socket {
             if (Validate.isDouble(rain)) {
                 rain.toDouble().apply {
                     if (this == 1.0) {
-                        Notification.PushqQuality.apply {
-                            setParams("Rain in $firstPlaceName", "Raining ($firstTimeValue)", Notification.rainNotificationId)
+                        Notification.PushQuality.apply {
+                            setParams("Rain tại $firstPlaceName", "Raining ($firstTimeValue)", Notification.rainNotificationId)
                             show()
                         }
                     }
@@ -127,8 +139,8 @@ class Socket {
                     val thresholds = Thresholds.uv(this)
 
                     if (thresholds == Thresholds.high || thresholds == Thresholds.veryhight || thresholds == Thresholds.extreme) {
-                        Notification.PushqQuality.apply {
-                            setParams("UV in $firstPlaceName", "$thresholds ($firstTimeValue)", Notification.aqiNotificationId)
+                        Notification.PushQuality.apply {
+                            setParams("UV tại $firstPlaceName", "${thresholds.toUpperCase()}: ${String.format("%.2f", uv.toDouble())} mW/cm2 ($firstTimeValue)", Notification.uvNotificationId)
                             show()
                         }
                     }
@@ -141,8 +153,8 @@ class Socket {
                     val thresholds = Thresholds.co(this)
 
                     if (thresholds == Thresholds.high || thresholds == Thresholds.veryhight || thresholds == Thresholds.extreme) {
-                        Notification.PushqQuality.apply {
-                            setParams("CO in $firstPlaceName", "$thresholds ($firstTimeValue)", Notification.aqiNotificationId)
+                        Notification.PushQuality.apply {
+                            setParams("CO tại $firstPlaceName", "${thresholds.toUpperCase()}: ${String.format("%.2f", co.toDouble())} ppm ($firstTimeValue)", Notification.coNotificationId)
                             show()
                         }
                     }
