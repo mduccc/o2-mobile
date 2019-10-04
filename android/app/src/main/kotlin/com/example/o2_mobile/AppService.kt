@@ -9,7 +9,7 @@ import android.util.Log
 class AppService : Service() {
     companion object {
         var token: String? = null
-        var socket: Socket? = null
+        private var socket: Socket? = null
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -54,9 +54,8 @@ class AppService : Service() {
 
     override fun onDestroy() {
         Log.d("Service", "onDestroy")
-        // Of connect
+        // Disconnect connect
         socket?.socket?.off()
-        socket = null
         token = null
         super.onDestroy()
     }
