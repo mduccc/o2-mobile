@@ -155,6 +155,11 @@ class _BottomSheetState extends State<BottomSheet> {
       humidity != 'false' ? humidity = humidity : humidity = '-';
       soil != 'false' ? soil = soil : soil = '-';
       smoke != 'false' ? smoke = smoke : smoke = '-';
+
+      co != 'false'
+          ? coQuality = Thresholds.co(double.parse(co))
+          : coQuality = coQuality;
+
       uv != 'false'
           ? uvQuality = Thresholds.uv(double.parse(uv))
           : uvQuality = uvQuality;
@@ -185,7 +190,7 @@ class _BottomSheetState extends State<BottomSheet> {
         // Smoke
         _airItem('Hỗn hợp khí', smokeQuality, smoke, 'ppm',
             Colors.blueAccent.withOpacity(0.9), Colors.white),
-        // CO2
+        // CO
         _airItem('CO', coQuality, co, 'ppm',
             Colors.greenAccent.withOpacity(0.6), Colors.white),
         // Dust
