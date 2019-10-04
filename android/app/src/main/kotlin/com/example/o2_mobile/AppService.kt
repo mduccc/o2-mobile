@@ -54,6 +54,10 @@ class AppService : Service() {
 
     override fun onDestroy() {
         Log.d("Service", "onDestroy")
+        // Of connect
+        socket?.socket?.off()
+        socket = null
+        token = null
         super.onDestroy()
     }
 }

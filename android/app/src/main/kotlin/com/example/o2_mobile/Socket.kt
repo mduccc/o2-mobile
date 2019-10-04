@@ -10,7 +10,7 @@ import org.json.JSONObject
 
 class Socket {
     private val optional = IO.Options()
-    private var socket: Socket
+    var socket: Socket
 
     init {
         optional.apply {
@@ -21,12 +21,14 @@ class Socket {
     }
 
     fun connect() {
-        Log.d("Socket From BG Service", "Connecting")
-
         socket.connect()
 
         socket.on(Socket.EVENT_CONNECT) {
             Log.d("Socket From BG Service", "Connected")
+        }
+
+        socket.on(Socket.EVENT_RECONNECTING) {
+            Log.d("Socket From BG Service", "Connecting")
         }
 
         socket.on(Socket.EVENT_DISCONNECT) {
