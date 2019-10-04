@@ -32,14 +32,15 @@ class MainActivity : FlutterActivity() {
             val jsonFromString = JSONObject(any.toString())
             Log.d("Sent from Dart", jsonFromString.get("command").toString())
             val intent = Intent(this, AppService::class.java)
-            val args = JSONObject(jsonFromString.get("args").toString())
-            val token = args.getString("token")
-            val place_id = args.getString("place_id")
-            intent.putExtra("token", token)
-            intent.putExtra("place_id", place_id)
 
             when (jsonFromString.get("command").toString()) {
                 "start_service" -> {
+                    val args = JSONObject(jsonFromString.get("args").toString())
+                    val token = args.getString("token")
+                    val place_id = args.getString("place_id")
+                    intent.putExtra("token", token)
+                    intent.putExtra("place_id", place_id)
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
                         applicationContext.startForegroundService(intent)
                     else
