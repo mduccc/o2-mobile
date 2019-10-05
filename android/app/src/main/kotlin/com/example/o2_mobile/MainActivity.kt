@@ -44,6 +44,15 @@ class MainActivity : FlutterActivity() {
                     intent.putExtra("token", token)
                     intent.putExtra("place_id", place_id)
 
+                    // Not for first open, each open app, check connection and connect
+                    if (AppService.socket != null && AppService.socket!!.socket != null && !AppService.socket!!.socket!!.connected())
+                        object : Thread() {
+                            override fun run() {
+                                AppService.socket?.setupAndConnect()
+                                join()
+                            }
+                        }.start()
+
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                         if (!ServiceRunning.foregroundServiceIsRunning())
                             applicationContext.startForegroundService(intent)

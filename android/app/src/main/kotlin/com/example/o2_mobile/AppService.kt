@@ -9,7 +9,7 @@ import android.util.Log
 class AppService : Service() {
     companion object {
         var token: String? = null
-        private var socket: Socket? = null
+        var socket: Socket? = null
     }
 
     override fun onBind(p0: Intent?): IBinder? {
@@ -26,10 +26,13 @@ class AppService : Service() {
             if (socket == null)
                 socket = Socket()
 
+
             // Connect to host with new Thread
             object : Thread() {
                 override fun run() {
-                    socket?.connect()
+                    socket?.offEvent()
+                    socket?.setupAndConnect()
+                    socket?.event()
                     socket?.onNotify()
                     intent.getStringExtra("place_id")?.let {
                         Log.d("place_id from Kotlin", it)
@@ -54,7 +57,7 @@ class AppService : Service() {
 
     override fun onDestroy() {
         Log.d("Service", "onDestroy")
-        // Disconnect connect
+        // Disconnect event
         socket?.socket?.off()
         token = null
         super.onDestroy()

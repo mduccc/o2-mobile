@@ -10,46 +10,56 @@ import org.json.JSONObject
 
 class Socket {
     private val optional = IO.Options()
-    lateinit var socket: Socket
+    var socket: Socket? = null
+    private val _timeout = 5000.toLong()
 
-    fun connect() {
+    fun setupAndConnect() {
+        socket = IO.socket(EndPoint.domain, optional)
+        Log.d("Socket From BG Service", "Connecting")
+
+        socket?.connect()
         optional.apply {
             query = "token=" + AppService.token
             transports = arrayOf("websocket")
-            reconnection = true
-            timeout = 1000
-            forceNew = true
+            reconnection = false
+            timeout = _timeout
         }
-        socket = IO.socket(EndPoint.domain, optional)
+    }
 
-        socket.on(Socket.EVENT_CONNECT) {
+    fun offEvent() {
+        socket?.off(Socket.EVENT_CONNECT)
+        socket?.off(Socket.EVENT_DISCONNECT)
+        socket?.off(Socket.EVENT_CONNECT_ERROR)
+        socket?.off(Socket.EVENT_RECONNECT_FAILED)
+    }
+
+    fun event() {
+        socket?.on(Socket.EVENT_CONNECT) {
             Log.d("Socket From BG Service", "Connected")
         }
 
-        socket.on(Socket.EVENT_RECONNECTING) {
-            Log.d("Socket From BG Service", "Connecting")
+        socket?.on(Socket.EVENT_DISCONNECT) {
+            Log.d("Socket From BG Service", "Disconnected. Retry in 5 seconds")
+            Thread.sleep(_timeout)
+            setupAndConnect()
         }
 
-        socket.on(Socket.EVENT_DISCONNECT) {
-            Log.d("Socket From BG Service", "Disconnected")
+        socket?.on(Socket.EVENT_CONNECT_ERROR) {
+            Log.d("Socket From BG Service", "Connect error. Retry in 5 seconds")
+            Thread.sleep(_timeout)
+            setupAndConnect()
         }
 
-        socket.on(Socket.EVENT_CONNECT_ERROR) {
-            Log.d("Socket From BG Service", "Connect error")
+        socket?.on(Socket.EVENT_RECONNECT_FAILED) {
+            Log.d("Socket From BG Service", "Connect failed. Retry in 5 seconds")
+            Thread.sleep(_timeout)
+            setupAndConnect()
         }
 
-        socket.on(Socket.EVENT_CONNECT_TIMEOUT) {
-            Log.d("Socket From BG Service", "Connect timeout")
-        }
-
-        socket.on(Socket.EVENT_RECONNECT_FAILED) {
-            Log.d("Socket From BG Service", "Connect failed")
-        }
-        socket.connect()
     }
 
     fun onNotify() {
-        socket.on("notify") {
+        socket?.on("notify") {
             val message = it[0].toString()
             Log.d("Socket From BG Service", message)
             if (message.isNotBlank()) {
@@ -71,7 +81,7 @@ class Socket {
     }
 
     fun onDataChanged(place_id: String) {
-        socket.on(place_id) {
+        socket?.on(place_id) {
             val jsonData = JSONObject(it[0].toString())
             val firstPlace = jsonData.getJSONArray("places").getJSONObject(0)
             val firstPlaceName = firstPlace.getString("place_name")
