@@ -1,7 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:o2_mobile/blocs/AirStream.dart';
-import 'package:o2_mobile/business/AQI.dart';
 import 'package:o2_mobile/business/AQI.dart' as prefix0;
 import 'package:o2_mobile/business/Validate.dart';
 import 'package:o2_mobile/models/AirModel.dart';

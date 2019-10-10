@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:o2_mobile/blocs/DeviceBloC.dart';
 import 'package:o2_mobile/business/DeviceControlProvider.dart';
@@ -38,14 +40,12 @@ class _DeviceState extends State<DeviceScreen> {
               backgroundColor: Colors.white,
             );
           });
-          print('Switching ' +
-              this._deviceList[index].toLowerCase().replaceAll(' ', '_'));
+          print('Switching ' + this._deviceList[index]);
           DeviceModel.Switch _switch = await deviceControlProvider.switch_(
-              this._deviceList[index].toLowerCase().replaceAll(' ', '_'),
+              this._deviceList[index],
               this._colorList[index] == this._on ? '0' : '1');
           if (_switch != null && _switch.code == 200) {
-            print('Switched ' +
-                this._deviceList[index].toLowerCase().replaceAll(' ', '_'));
+            print('Switched ' + this._deviceList[index]);
             setState(() {
               this._loadingList[index] = Text('');
               if (this._colorList[index] == this._on)
@@ -68,8 +68,11 @@ class _DeviceState extends State<DeviceScreen> {
                   height: 70,
                   child: Center(
                     child: Text(
-                      this._deviceList[index][0].toUpperCase() +
-                          this._deviceList[index].substring(1),
+                      (this._deviceList[index][0].toUpperCase() +
+                          this
+                              ._deviceList[index]
+                              .substring(1)
+                              .replaceAll('_', ' ')),
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -165,67 +168,85 @@ class _DeviceState extends State<DeviceScreen> {
                     this._loadingList.add(Text(''));
                     this._loadingList.add(Text(''));
 
-                    if (state.devices.lights.light_1 == '1')
-                      this._colorList.add(this._on);
-                    else
-                      this._colorList.add(this._off);
-
-                    if (state.devices.fans.fan_1 == '1')
-                      this._colorList.add(this._on);
-                    else
-                      this._colorList.add(this._off);
-
-                    if (state.devices.awnings.awning_1 == '1')
-                      this._colorList.add(this._on);
-                    else
-                      this._colorList.add(this._off);
-
-                    if (state.devices.pumps.pump_1 == '1')
-                      this._colorList.add(this._on);
-                    else
-                      this._colorList.add(this._off);
-                    // Clear and add again for function setState()
+                    // var devices =
+                    //     json.decode(json.encode(state.devices.toString()));
+                    Map<String, dynamic> devices = state.devices;
+                    List<String> devices_key_sorted = devices.keys.toList()
+                      ..sort();
                     this._deviceList.clear();
-                    this._deviceList.add(state.devices.lights.runtimeType
-                            .toString()
-                            .substring(
-                                0,
-                                state.devices.lights.runtimeType
-                                        .toString()
-                                        .length -
-                                    1)
-                            .toLowerCase() +
-                        ' 1');
-                    this._deviceList.add(state.devices.fans.runtimeType
-                            .toString()
-                            .substring(
-                                0,
-                                state.devices.fans.runtimeType
-                                        .toString()
-                                        .length -
-                                    1)
-                            .toLowerCase() +
-                        ' 1');
-                    this._deviceList.add(state.devices.awnings.runtimeType
-                            .toString()
-                            .substring(
-                                0,
-                                state.devices.awnings.runtimeType
-                                        .toString()
-                                        .length -
-                                    1)
-                            .toLowerCase() +
-                        ' 1');
-                    this._deviceList.add(state.devices.pumps.runtimeType
-                            .toString()
-                            .substring(
-                                0,
-                                state.devices.pumps.runtimeType
-                                        .toString()
-                                        .length -
-                                    1)
-                            .toLowerCase() +
-                        ' 1');
+                    for (var device_group_key in devices_key_sorted) {
+                      Map<String, dynamic> device = devices[device_group_key];
+                      for (var device_key in device.keys) {
+                        if (device[device_key] == '1')
+                          this._colorList.add(this._on);
+                        else
+                          this._colorList.add(this._off);
+
+                        this._deviceList.add(device_key);
+                      }
+                    }
+
+                    // if (state.devices.lights.light_1 == '1')
+                    //   this._colorList.add(this._on);
+                    // else
+                    //   this._colorList.add(this._off);
+
+                    // if (state.devices.fans.fan_1 == '1')
+                    //   this._colorList.add(this._on);
+                    // else
+                    //   this._colorList.add(this._off);
+
+                    // if (state.devices.awnings.awning_1 == '1')
+                    //   this._colorList.add(this._on);
+                    // else
+                    //   this._colorList.add(this._off);
+
+                    // if (state.devices.pumps.pump_1 == '1')
+                    //   this._colorList.add(this._on);
+                    // else
+                    //   this._colorList.add(this._off);
+                    // // Clear and add again for function setState()
+                    // this._deviceList.clear();
+                    // this._deviceList.add(state.devices.lights.runtimeType
+                    //         .toString()
+                    //         .substring(
+                    //             0,
+                    //             state.devices.lights.runtimeType
+                    //                     .toString()
+                    //                     .length -
+                    //                 1)
+                    //         .toLowerCase() +
+                    //     ' 1');
+                    // this._deviceList.add(state.devices.fans.runtimeType
+                    //         .toString()
+                    //         .substring(
+                    //             0,
+                    //             state.devices.fans.runtimeType
+                    //                     .toString()
+                    //                     .length -
+                    //                 1)
+                    //         .toLowerCase() +
+                    //     ' 1');
+                    // this._deviceList.add(state.devices.awnings.runtimeType
+                    //         .toString()
+                    //         .substring(
+                    //             0,
+                    //             state.devices.awnings.runtimeType
+                    //                     .toString()
+                    //                     .length -
+                    //                 1)
+                    //         .toLowerCase() +
+                    //     ' 1');
+                    // this._deviceList.add(state.devices.pumps.runtimeType
+                    //         .toString()
+                    //         .substring(
+                    //             0,
+                    //             state.devices.pumps.runtimeType
+                    //                     .toString()
+                    //                     .length -
+                    //                 1)
+                    //         .toLowerCase() +
+                    //     ' 1');
 
                     return _place();
                   }
