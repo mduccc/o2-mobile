@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:o2_mobile/blocs/AirStream.dart';
+import 'package:o2_mobile/business/AQI.dart' as prefix0;
 import 'package:o2_mobile/business/Thresholds.dart';
 import 'package:o2_mobile/business/Validate.dart';
 import 'package:o2_mobile/models/AirModel.dart';
@@ -96,10 +97,7 @@ class _AQICurrentState extends State<AQICurrent> {
             var dust =
                 Validate.isDouble(airModel.places[0].times[0].datas.dust);
             if (dust != false) {
-              double aqi = 0;
-              dust > 36.455
-                  ? aqi = ((dust / 1024) - 0.0356) * 120000 * 0.035
-                  : aqi = 0;
+              double aqi = prefix0.aqi.cal(dust);
               print('AQI current: ' + aqi.toString());
 
               return _AQICurrent(aqi.toStringAsFixed(0));
