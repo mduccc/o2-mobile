@@ -17,8 +17,7 @@ class LoginBloC {
 
   Future info() async {
     await databaseProvider.openOrCreate();
-    AccModel accModel =
-        await this._login.info(await databaseProvider.getToken());
+    AccModel accModel = await this._login.info();
     accInfoPublishSubject.add(accModel);
   }
 }
