@@ -1,4 +1,3 @@
-import 'package:o2_mobile/business/DatabaseProvider.dart';
 import 'package:o2_mobile/business/LoginProvider.dart';
 import 'package:o2_mobile/models/AccModel.dart';
 import 'package:o2_mobile/models/LoginModel.dart';
@@ -16,7 +15,6 @@ class LoginBloC {
   }
 
   Future info() async {
-    await databaseProvider.openOrCreate();
     AccModel accModel = await this._login.info();
     accInfoPublishSubject.add(accModel);
   }
