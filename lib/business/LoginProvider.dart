@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:o2_mobile/business/DatabaseProvider.dart';
 import 'package:o2_mobile/business/EndPoint.dart';
 import 'package:o2_mobile/models/AccModel.dart';
 import 'package:o2_mobile/models/LoginModel.dart';
@@ -22,13 +23,13 @@ class LoginProvider {
     }
   }
 
-  Future<AccModel> info(String token) async {
+  Future<AccModel> info() async {
     try {
       http.Response response = await this._client.post(EndPoint.accinfo,
           headers: {
             'content-type': 'application/json',
           },
-          body: json.encode({'token': token}));
+          body: json.encode({'token': await databaseProvider.getToken()}));
       return AccModel.fromJson(json.decode(response.body));
     } catch (exeption) {
       print(exeption);
