@@ -50,17 +50,25 @@ class _HomeHeaderState extends State<HomeHeader> {
                           if (snapshot.hasData) {
                             AccModel accModel = snapshot.data;
                             if (accModel.code == 200)
-                              return Text(
-                                'Tại ' + accModel.place_name,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold),
+                              return InkWell(
+                                child: Text(
+                                  'Tại ' + accModel.place_name,
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => MapScreen()));
+                                },
                               );
 
-                            return Text('-');
+                            return Text('');
                           }
                         }
-                        return Text('-');
+                        return Text('');
                       },
                     )),
               ),

@@ -32,6 +32,6 @@ class AccModel {
         email: json['email'],
         place_id: json['place_id'],
         place_name: json['place_name'],
-        place_coord: json['place_coord']);
+        place_coord: Coord.fromJson(json['place_coord']));
   }
 }
