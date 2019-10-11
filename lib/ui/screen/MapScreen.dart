@@ -75,7 +75,7 @@ class _MapScreen extends State<MapScreen> {
         ),
         backgroundColor: ThemseColors.primaryColor,
         body: Container(
-          margin: EdgeInsets.all(15),
+          margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
           width: double.infinity,
           child: Column(
             children: <Widget>[

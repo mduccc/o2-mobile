@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class AQI {
   double cal(double y) {
     double aqi;

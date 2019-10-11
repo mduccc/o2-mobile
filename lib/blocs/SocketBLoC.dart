@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:o2_mobile/blocs/AirBloC.dart';
 import 'package:o2_mobile/business/DatabaseProvider.dart';
 import 'package:o2_mobile/business/EndPoint.dart';

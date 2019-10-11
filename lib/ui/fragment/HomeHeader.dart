@@ -52,7 +52,7 @@ class _HomeHeaderState extends State<HomeHeader> {
                             if (accModel.code == 200)
                               return InkWell(
                                 child: Text(
-                                  'Tại ' + accModel.place_name,
+                                  accModel.place_name,
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.bold),

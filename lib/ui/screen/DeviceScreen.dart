@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:o2_mobile/blocs/DeviceBloC.dart';
 import 'package:o2_mobile/business/DeviceControlProvider.dart';
