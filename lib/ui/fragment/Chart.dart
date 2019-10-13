@@ -186,10 +186,10 @@ class _ChartState extends State<ChartFrag> {
 
     // If minX, minY is double number
     if (minX != false && maxX != false) {
-      limit.add(FlSpot(minX, 300));
-      limit.add(FlSpot(maxX, 300));
-      limit2.add(FlSpot(minX, 1050));
-      limit2.add(FlSpot(maxX, 1050));
+      limit.add(FlSpot(minX, 50));
+      limit.add(FlSpot(maxX, 50));
+      limit2.add(FlSpot(minX, 151));
+      limit2.add(FlSpot(maxX, 151));
     }
     // Cannot draw line if only have one point, therefor check it before draw
     if (aoi.length > 1)
