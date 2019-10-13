@@ -13,6 +13,21 @@ class HomeHeader extends StatefulWidget {
 }
 
 class _HomeHeaderState extends State<HomeHeader> {
+  String _cacheName = '';
+
+  Widget _title() {
+    return InkWell(
+      child: Text(
+        this._cacheName,
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+      ),
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => MapScreen()));
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -49,26 +64,15 @@ class _HomeHeaderState extends State<HomeHeader> {
                         if (!snapshot.hasError) {
                           if (snapshot.hasData) {
                             AccModel accModel = snapshot.data;
-                            if (accModel.code == 200)
-                              return InkWell(
-                                child: Text(
-                                  accModel.place_name,
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => MapScreen()));
-                                },
-                              );
+                            if (accModel.code == 200) {
+                              this._cacheName = accModel.place_name;
+                              return _title();
+                            }
 
-                            return Text('');
+                            return _title();
                           }
                         }
-                        return Text('');
+                        return _title();
                       },
                     )),
               ),
