@@ -151,7 +151,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                           ),
                                         ),
                                         padding: EdgeInsets.only(
-                                            left: 15,
+                                            left: 20,
                                             right: 20,
                                             top: 3,
                                             bottom: 3),
@@ -174,7 +174,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                                 opacity: 0.9,
                                                 child: Image.asset(
                                                   'assets/password.png',
-                                                  scale: 4,
+                                                  scale: 3,
                                                 ),
                                               ),
                                               hintStyle: TextStyle(
