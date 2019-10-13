@@ -27,3 +27,8 @@ class Switch {
     );
   }
 }
+
+class Group {
+  String groupName;
+  Map<String, dynamic> devices;
+}

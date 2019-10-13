@@ -4,58 +4,56 @@ import 'package:o2_mobile/business/DeviceControlProvider.dart';
 import 'package:o2_mobile/ui/ThemseColors.dart';
 import 'package:o2_mobile/models/DeviceModel.dart' as DeviceModel;
 
-class DeviceScreen extends StatefulWidget {
-  String _place_name;
-  DeviceScreen(this._place_name);
+class DeviceGroup extends StatefulWidget {
+  DeviceModel.Group groupData;
+  DeviceGroup(this.groupData);
+
   @override
   State<StatefulWidget> createState() {
-    return _DeviceState(this._place_name);
+    return _DeviceGroupState(this.groupData);
   }
 }
 
-class _DeviceState extends State<DeviceScreen> {
-  String _place_name;
-  // true: on, false: off
-  List<Color> _colorList = List();
-  List<String> _deviceList = List();
-  List<Widget> _loadingList = List();
+class _DeviceGroupState extends State<DeviceGroup> {
+  DeviceModel.Group _groupData;
+  _DeviceGroupState(this._groupData);
   Color _on = Colors.blue;
   Color _off = Colors.blue.withOpacity(0.1);
-  _DeviceState(this._place_name);
+  List<Widget> _animate = List();
 
-  Widget _item(int index) {
+  Widget _item(Map<String, dynamic> device, index) {
     return Container(
       width: 70,
       height: 70,
       margin: EdgeInsets.only(right: 15, bottom: 15, left: 15),
       decoration: BoxDecoration(
-          color: this._colorList[index],
+          color: device[device.keys.first] == '1' ? this._on : this._off,
           borderRadius: BorderRadius.all(Radius.circular(50))),
       child: InkWell(
         onTap: () async {
+          print('Switching ' + device.keys.first);
           setState(() {
-            this._loadingList[index] = CircularProgressIndicator(
+            // Update UI
+            this._animate[index] = CircularProgressIndicator(
               backgroundColor: Colors.white,
             );
           });
-          print('Switching ' + this._deviceList[index]);
+
           DeviceModel.Switch _switch = await deviceControlProvider.switch_(
-              this._deviceList[index],
-              this._colorList[index] == this._on ? '0' : '1');
-          if (_switch != null && _switch.code == 200) {
-            print('Switched ' + this._deviceList[index]);
+              device.keys.first,
+              this._groupData.devices[device.keys.first] == '0' ? '1' : '0');
+
+          if (_switch.code == 200) {
             setState(() {
-              this._loadingList[index] = Text('');
-              if (this._colorList[index] == this._on)
-                this._colorList[index] = this._off;
-              else
-                this._colorList[index] = this._on;
-            });
-          } else {
-            setState(() {
-              this._loadingList[index] = Text('');
+              // Update UI
+              this._groupData.devices[device.keys.first] =
+                  this._groupData.devices[device.keys.first] == '0' ? '1' : '0';
             });
           }
+          setState(() {
+            // Update UI
+            this._animate[index] = Text('');
+          });
         },
         child: FittedBox(
             fit: BoxFit.scaleDown,
@@ -66,11 +64,8 @@ class _DeviceState extends State<DeviceScreen> {
                   height: 70,
                   child: Center(
                     child: Text(
-                      (this._deviceList[index][0].toUpperCase() +
-                          this
-                              ._deviceList[index]
-                              .substring(1)
-                              .replaceAll('_', ' ')),
+                      (device.keys.first[0].toUpperCase() +
+                          device.keys.first.substring(1).replaceAll('_', ' ')),
                       style: TextStyle(color: Colors.white),
                     ),
                   ),
@@ -78,7 +73,7 @@ class _DeviceState extends State<DeviceScreen> {
                 Container(
                   width: 70,
                   height: 70,
-                  child: this._loadingList[index],
+                  child: this._animate[index],
                 )
               ],
             )),
@@ -86,11 +81,19 @@ class _DeviceState extends State<DeviceScreen> {
     );
   }
 
-  Widget _place() {
+  Widget _group() {
     int index = -1;
+    List<Map<String, dynamic>> devices = List();
+
+    // Add data to map
+    for (var key in this._groupData.devices.keys) {
+      devices.add(Map.from({key: this._groupData.devices[key]}));
+      this._animate.add(Text(''));
+    }
+
     return Container(
       width: double.infinity,
-      margin: EdgeInsets.only(left: 15, right: 15),
+      margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
       padding: EdgeInsets.all(15),
       decoration: BoxDecoration(
           color: ThemseColors.secondColor,
@@ -104,7 +107,8 @@ class _DeviceState extends State<DeviceScreen> {
               fit: BoxFit.scaleDown,
               alignment: FractionalOffset.centerLeft,
               child: Text(
-                'Điều khiển các thiết bị',
+                this._groupData.groupName[0].toUpperCase() +
+                    this._groupData.groupName.substring(1),
                 style: TextStyle(
                     color: Colors.white,
                     fontSize: 16,
@@ -112,23 +116,50 @@ class _DeviceState extends State<DeviceScreen> {
               ),
             ),
           ),
-          this._deviceList.length != 0
-              ? Container(
-                  padding: EdgeInsets.all(15),
-                  child: Wrap(
-                    // Do it for setState()
-                    children: this._deviceList.map((item) {
-                      index++;
-                      return _item(index);
-                    }).toList(),
-                  ),
-                )
-              : Container(
-                  child: CircularProgressIndicator(),
-                )
+          Container(
+              padding: EdgeInsets.all(15),
+              child: Wrap(
+                // Do it for setState()
+                children: devices.map((value) {
+                  index++;
+                  return _item(value, index);
+                }).toList(),
+              ))
         ],
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _group();
+  }
+}
+
+class DeviceScreen extends StatefulWidget {
+  String _place_name;
+  DeviceScreen(this._place_name);
+  @override
+  State<StatefulWidget> createState() {
+    return _DeviceState(this._place_name);
+  }
+}
+
+class _DeviceState extends State<DeviceScreen> {
+  String _place_name;
+  List<DeviceModel.Group> _groups = List();
+  _DeviceState(this._place_name);
+
+  Widget _deviceGroups() {
+    return SingleChildScrollView(
+        child: Container(
+      margin: EdgeInsets.only(top: 15),
+      child: Column(
+        children: this._groups.map((group) {
+          return DeviceGroup(group);
+        }).toList(),
+      ),
+    ));
   }
 
   @override
@@ -143,7 +174,7 @@ class _DeviceState extends State<DeviceScreen> {
       appBar: AppBar(
         backgroundColor: ThemseColors.primaryColor,
         elevation: 0,
-        title: Text(''),
+        title: Text('Điều khiển các thiết bị'),
         leading: IconButton(
           icon: Icon(Icons.arrow_back),
           onPressed: () {
@@ -152,43 +183,37 @@ class _DeviceState extends State<DeviceScreen> {
         ),
       ),
       backgroundColor: ThemseColors.primaryColor,
-      body: Column(
-        children: <Widget>[
-          StreamBuilder(
-            stream: devicePushlishSubject.stream,
-            builder: (context, snapshot) {
-              if (!snapshot.hasError) {
-                if (snapshot.hasData) {
-                  DeviceModel.State state = snapshot.data;
-                  if (state.code == 200) {
-                    Map<String, dynamic> devices = state.devices;
-                    List<String> devices_key_sorted = devices.keys.toList()
-                      ..sort();
-                    this._deviceList.clear();
-                    for (var device_group_key in devices_key_sorted) {
-                      Map<String, dynamic> device = devices[device_group_key];
-                      for (var device_key in device.keys) {
-                        this._loadingList.add(Text(''));
-                        if (device[device_key] == '1')
-                          this._colorList.add(this._on);
-                        else
-                          this._colorList.add(this._off);
-
-                        this._deviceList.add(device_key);
-                      }
-                    }
-
-                    return _place();
+      body: StreamBuilder(
+          stream: devicePushlishSubject.stream,
+          builder: (context, snapshot) {
+            if (!snapshot.hasError) {
+              if (snapshot.hasData) {
+                DeviceModel.State state = snapshot.data;
+                if (state.code == 200) {
+                  this._groups.clear();
+                  Map<String, dynamic> devices = state.devices;
+                  List<String> devices_key_sorted = devices.keys.toList()
+                    ..sort();
+                  for (var device_group_key in devices_key_sorted) {
+                    DeviceModel.Group group = DeviceModel.Group();
+                    group.groupName = device_group_key;
+                    group.devices = Map.from(devices[device_group_key]);
+                    this._groups.add(group);
                   }
-                } else
-                  print(snapshot.error);
-              }
+                  return _deviceGroups();
+                }
 
-              return _place();
-            },
-          )
-        ],
-      ),
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+            } else
+              print(snapshot.error);
+
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }),
     );
   }
 }
