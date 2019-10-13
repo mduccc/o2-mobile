@@ -22,12 +22,12 @@ class Thresholds {
   static String aqi(double value) {
     String message = '';
 
-    if (value >= 0 && value < 75) message = Thresholds.verygood;
-    if (value >= 75 && value < 150) message = Thresholds.good;
-    if (value >= 150 && value < 300) message = Thresholds.normal;
-    if (value >= 300 && value < 1050) message = Thresholds.medium;
-    if (value >= 1050 && value < 3000) message = Thresholds.bad;
-    if (value >= 3000) message = Thresholds.extreme;
+    if (value >= 0 && value < 51) message = Thresholds.verygood;
+    if (value >= 51 && value < 101) message = Thresholds.normal;
+    if (value >= 101 && value < 151) message = Thresholds.medium;
+    if (value >= 151 && value < 201) message = Thresholds.bad;
+    if (value >= 201 && value < 301) message = Thresholds.verybad;
+    if (value >= 301) message = Thresholds.extreme;
 
     return message;
   }
@@ -35,11 +35,11 @@ class Thresholds {
   static String uv(double value) {
     String message = '';
 
-    if (value >= 0 && value < 50) message = Thresholds.safe;
-    if (value >= 50 && value < 125) message = Thresholds.medium;
-    if (value >= 125 && value < 175) message = Thresholds.high;
-    if (value >= 175 && value < 250) message = Thresholds.veryhight;
-    if (value >= 250) message = Thresholds.extreme;
+    if (value >= 0 && value < 2) message = Thresholds.safe;
+    if (value >= 2 && value < 4) message = Thresholds.medium;
+    if (value >= 4 && value < 7) message = Thresholds.high;
+    if (value >= 7 && value < 10) message = Thresholds.veryhight;
+    if (value >= 10) message = Thresholds.extreme;
 
     return message;
   }

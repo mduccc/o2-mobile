@@ -1,6 +1,9 @@
 import 'dart:async';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:o2_mobile/blocs/LoginBloC.dart';
 import 'package:o2_mobile/models/AccModel.dart';
@@ -20,6 +23,16 @@ class _MapScreen extends State<MapScreen> {
   void initState() {
     super.initState();
     loginBloC.info();
+  }
+
+  Future<Uint8List> getBytesFromAsset(String path, int width) async {
+    ByteData data = await rootBundle.load(path);
+    ui.Codec codec = await ui.instantiateImageCodec(data.buffer.asUint8List(),
+        targetWidth: width);
+    ui.FrameInfo fi = await codec.getNextFrame();
+    return (await fi.image.toByteData(format: ui.ImageByteFormat.png))
+        .buffer
+        .asUint8List();
   }
 
   Widget _map(double lat, double lon, String place_name, String place_id) {
@@ -42,12 +55,25 @@ class _MapScreen extends State<MapScreen> {
                 print('Map created');
                 Completer().complete(controller);
               },
+              circles: Set.from([
+                Circle(
+                    circleId: CircleId(place_id),
+                    center: LatLng(lat, lon),
+                    strokeColor: Colors.red,
+                    fillColor: Colors.red,
+                    strokeWidth: 30,
+                    radius: 15,
+                    visible: true)
+              ]),
               markers: Set.from([
                 Marker(
-                    markerId: MarkerId(place_id),
-                    position: LatLng(lat, lon),
-                    infoWindow: InfoWindow(
-                        title: place_name, snippet: 'Vị trí đặt cảm biến')),
+                  markerId: MarkerId(place_id),
+                  position: LatLng(lat, lon),
+                  infoWindow: InfoWindow(
+                    title: place_name,
+                    snippet: 'Vị trí đặt cảm biến',
+                  ),
+                ),
               ])),
         ));
   }
