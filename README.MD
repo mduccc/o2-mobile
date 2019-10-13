@@ -5,9 +5,9 @@
 
 <a href="https://imgur.com/9JRRgF5"><img src="https://i.imgur.com/9JRRgF5.png" title="source: imgur.com" width=40% /></a><br/><br/>
 
-<a href="https://imgur.com/VOS0Ngr"><img src="https://i.imgur.com/VOS0Ngr.png" title="source: imgur.com" width=40% /></a><br/><br/>
+<a href="https://imgur.com/HPjBju7"><img src="https://i.imgur.com/HPjBju7.png" title="source: imgur.com" width=40% /></a></a><br/><br/>
 
-<a href="https://imgur.com/F0s9V9r"><img src="https://i.imgur.com/F0s9V9r.png" title="source: imgur.com" width=40% /></a><br/><br/>
+<a href="https://imgur.com/rrhonEB"><img src="https://i.imgur.com/rrhonEB.png" title="source: imgur.com" width=40%/></a></a><br/><br/>
 
 <a href="https://imgur.com/TRYn73Y"><img src="https://i.imgur.com/TRYn73Y.png" title="source: imgur.com" width=40% /></a><br/><br/>
 
