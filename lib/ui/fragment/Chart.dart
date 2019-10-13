@@ -186,8 +186,8 @@ class _ChartState extends State<ChartFrag> {
 
     // If minX, minY is double number
     if (minX != false && maxX != false) {
-      limit.add(FlSpot(minX, 50));
-      limit.add(FlSpot(maxX, 50));
+      limit.add(FlSpot(minX, 101));
+      limit.add(FlSpot(maxX, 101));
       limit2.add(FlSpot(minX, 151));
       limit2.add(FlSpot(maxX, 151));
     }
