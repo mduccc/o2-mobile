@@ -65,9 +65,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   Widget _accountHeader() {
     return Container(
-      height: 100,
+      height: 150,
       width: double.infinity,
-      padding: EdgeInsets.all(2),
+      padding: EdgeInsets.only(top: 10, bottom: 10),
       margin: EdgeInsets.only(left: 15, right: 15, top: 5, bottom: 15),
       decoration: BoxDecoration(
           color: ThemseColors.secondColor,
@@ -133,7 +133,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Container(
         width: double.infinity,
         margin: EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 15),
-        padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
+        padding: EdgeInsets.only(left: 15, right: 15, top: 15, bottom: 15),
         decoration: BoxDecoration(
             color: ThemseColors.secondColor,
             borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -164,7 +164,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 15),
-      padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
       decoration: BoxDecoration(
           color: ThemseColors.secondColor,
           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -172,45 +171,47 @@ class _ProfileScreenState extends State<ProfileScreen> {
           margin: EdgeInsets.only(bottom: 5, top: 5),
           child: Center(
             child: Container(
+                padding: EdgeInsets.all(15),
                 child: InkWell(
-              child: Text('Đăng xuất',
-                  style: TextStyle(
-                    color: Colors.redAccent,
-                    fontWeight: FontWeight.bold,
-                  )),
-              onTap: () async {
-                setState(() {
-                  this._onLogout = true;
-                });
-                prefix0.Switch _switch = await logoutProvider.logout();
-                if (_switch != null && _switch.code == 200) {
-                  await databaseProvider.openOrCreate();
-                  await databaseProvider.makeEmptyTokenTable();
-                  // Push and remove all others screen in router
-                  Navigator.of(context).pushAndRemoveUntil(
-                      MaterialPageRoute(builder: (context) => LoginScreen()),
-                      (Route<dynamic> route) => false);
+                  child: Text('Đăng xuất',
+                      style: TextStyle(
+                        color: Colors.redAccent,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  onTap: () async {
+                    setState(() {
+                      this._onLogout = true;
+                    });
+                    prefix0.Switch _switch = await logoutProvider.logout();
+                    if (_switch != null && _switch.code == 200) {
+                      await databaseProvider.openOrCreate();
+                      await databaseProvider.makeEmptyTokenTable();
+                      // Push and remove all others screen in router
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(
+                              builder: (context) => LoginScreen()),
+                          (Route<dynamic> route) => false);
 
-                  // For Android
-                  if (Platform.isAndroid) {
-                    // Try call function from Kotlin with Json
-                    await serviceBackgroudChannel.send(json.encode({
-                      'command': 'stop_service',
-                      'description': 'Stop Service'
-                    }));
-                  }
+                      // For Android
+                      if (Platform.isAndroid) {
+                        // Try call function from Kotlin with Json
+                        await serviceBackgroudChannel.send(json.encode({
+                          'command': 'stop_service',
+                          'description': 'Stop Service'
+                        }));
+                      }
 
-                  // For IOS
-                  if (Platform.isIOS) {}
+                      // For IOS
+                      if (Platform.isIOS) {}
 
-                  notify('Đã đăng xuất', Colors.green);
-                } else {
-                  setState(() {
-                    this._onLogout = false;
-                  });
-                }
-              },
-            )),
+                      notify('Đã đăng xuất', Colors.green);
+                    } else {
+                      setState(() {
+                        this._onLogout = false;
+                      });
+                    }
+                  },
+                )),
           )),
     );
   }
@@ -219,7 +220,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(left: 15, right: 15, top: 0, bottom: 15),
-      padding: EdgeInsets.only(left: 15, right: 15, top: 10, bottom: 10),
       decoration: BoxDecoration(
           color: ThemseColors.secondColor,
           borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -227,20 +227,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
           margin: EdgeInsets.only(bottom: 5, top: 5),
           child: Center(
             child: Container(
+                padding: EdgeInsets.all(15),
                 child: InkWell(
-              child: Text('Các thiết bị',
-                  style: TextStyle(
-                    color: Colors.blue,
-                    fontWeight: FontWeight.bold,
-                  )),
-              onTap: () {
-                if (this._accModel != null) {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) =>
-                          DeviceScreen(this._accModel.place_name)));
-                }
-              },
-            )),
+                  child: Text('Các thiết bị',
+                      style: TextStyle(
+                        color: Colors.blue,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  onTap: () {
+                    if (this._accModel != null) {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              DeviceScreen(this._accModel.place_name)));
+                    }
+                  },
+                )),
           )),
     );
   }

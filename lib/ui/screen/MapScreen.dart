@@ -91,7 +91,7 @@ class _MapScreen extends State<MapScreen> {
         appBar: AppBar(
           backgroundColor: ThemseColors.primaryColor,
           elevation: 0,
-          title: Text(''),
+          title: Text('Nơi đặt cảm biến'),
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
             onPressed: () {
@@ -101,46 +101,12 @@ class _MapScreen extends State<MapScreen> {
         ),
         backgroundColor: ThemseColors.primaryColor,
         body: Container(
-          margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+          margin: EdgeInsets.only(left: 15, right: 15, bottom: 15, top: 15),
           width: double.infinity,
           child: Column(
             children: <Widget>[
               Expanded(
-                flex: 1,
-                child: Container(
-                  padding: EdgeInsets.all(15),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                      color: ThemseColors.secondColor,
-                      borderRadius: BorderRadius.all(Radius.circular(10))),
-                  child: StreamBuilder(
-                    stream: accInfoPublishSubject.stream,
-                    builder: (context, snapshot) {
-                      if (!snapshot.hasError) {
-                        if (snapshot.hasData) {
-                          AccModel accModel = snapshot.data;
-                          if (accModel.code == 200) {
-                            return FittedBox(
-                              fit: BoxFit.scaleDown,
-                              child: Text(
-                                accModel.place_name,
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            );
-                          } else
-                            return Text('');
-                        }
-                      }
-                      return Text('');
-                    },
-                  ),
-                ),
-              ),
-              Expanded(
-                  flex: 10,
+                  flex: 1,
                   child: StreamBuilder(
                     stream: accInfoPublishSubject.stream,
                     builder: (context, snapshot) {
