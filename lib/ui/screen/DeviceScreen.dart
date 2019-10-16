@@ -91,6 +91,23 @@ class _DeviceGroupState extends State<DeviceGroup> {
       this._animate.add(Text(''));
     }
 
+    for (int i = 0; i < devices.length - 1; i++) {
+      for (int j = i + 1; j < devices.length; j++) {
+        if (int.parse(devices[i]
+                .keys
+                .first
+                .substring(devices[i].keys.first.indexOf('_') + 1)) >
+            int.parse(devices[j]
+                .keys
+                .first
+                .substring(devices[j].keys.first.indexOf('_') + 1))) {
+          var temp = devices[i];
+          devices[i] = devices[j];
+          devices[j] = temp;
+        }
+      }
+    }
+
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),

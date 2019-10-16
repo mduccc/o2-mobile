@@ -116,25 +116,15 @@ class Socket {
             }
 
             // AQI
-            if (Validate.isDouble(dust)) {
-                var aqi: Double
-                dust.toDouble().apply {
-                    aqi = if (this < 36.455)
-                        0.0
-                    else
-                        ((this / 1024) - 0.0356) * 120000 * 0.035
-
-                    aqi = String.format("%.2f", aqi).toDouble()
-
-                    val thresholds = Thresholds.aqi(aqi)
-
-                    if (thresholds == Thresholds.bad || thresholds == Thresholds.extreme) {
-                        Log.d("Dust from Kotlin", this.toString())
-                        Log.d("AQI from Kotlin", aqi.toString())
-                        Notification.PushQuality.apply {
-                            setParams("AQI tại $firstPlaceName", "${thresholds.toUpperCase()}: $aqi ($firstTimeValue)", Notification.aqiNotificationId)
-                            show()
-                        }
+            if (Validate.isDouble(dust) && Validate.isDouble(co) && Validate.isDouble(smoke) && Validate.isDouble(uv)) {
+                val aqi = AQI.cal(dust.toDouble(), co.toDouble(), smoke.toDouble(), uv.toDouble())
+                val thresholds = Thresholds.aqi(aqi)
+                if (thresholds == Thresholds.bad || thresholds == Thresholds.extreme) {
+                    Log.d("Dust from Kotlin", this.toString())
+                    Log.d("AQI from Kotlin", aqi.toString())
+                    Notification.PushQuality.apply {
+                        setParams("AQI tại $firstPlaceName", "${thresholds.toUpperCase()}: ${String.format("%.2f", aqi)} ($firstTimeValue)", Notification.aqiNotificationId)
+                        show()
                     }
                 }
             }

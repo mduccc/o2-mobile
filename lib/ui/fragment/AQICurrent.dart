@@ -96,8 +96,12 @@ class _AQICurrentState extends State<AQICurrent> {
             AirModel airModel = snapshot.data;
             var dust =
                 Validate.isDouble(airModel.places[0].times[0].datas.dust);
+            var co = Validate.isDouble(airModel.places[0].times[0].datas.co);
+            var smoke =
+                Validate.isDouble(airModel.places[0].times[0].datas.smoke);
+            var uv = Validate.isDouble(airModel.places[0].times[0].datas.uv);
             if (dust != false) {
-              double aqi = prefix0.aqi.cal(dust);
+              double aqi = prefix0.aqi.cal(dust, co, smoke, uv);
               print('AQI current: ' + aqi.toString());
 
               return _AQICurrent(aqi.toStringAsFixed(0));

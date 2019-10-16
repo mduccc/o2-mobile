@@ -136,7 +136,7 @@ class _ChartState extends State<ChartFrag> {
   }
 
   Widget _buildAQIChart(AirModel airModel) {
-    List<FlSpot> aoi = List();
+    List<FlSpot> aois = List();
     List<FlSpot> limit = List();
     List<FlSpot> limit2 = List();
     List<FlSpot> limit3 = List();
@@ -166,17 +166,24 @@ class _ChartState extends State<ChartFrag> {
 
         // X is time value converted, Y is value of AQI from dust
         var x = Validate.isDouble(newTime);
-        var y = Validate.isDouble(time.datas.dust);
+        var dust = Validate.isDouble(time.datas.dust);
+        var co = Validate.isDouble(time.datas.co);
+        var smoke = Validate.isDouble(time.datas.smoke);
+        var uv = Validate.isDouble(time.datas.uv);
 
         // If x, y is double number
-        if (x != false && y != false) {
+        if (x != false &&
+            dust != false &&
+            co != false &&
+            smoke != false &&
+            uv != false) {
           //print(x.toString() + ' ' + y.toString());
-          double aqi = prefix0.aqi.cal(y);
+          double aqi = prefix0.aqi.cal(dust, co, smoke, uv);
 
           print('AQI: ' + aqi.toString());
 
           // add a point to chart
-          aoi.add(FlSpot(x, aqi));
+          aois.add(FlSpot(x, aqi));
         }
       }
     });
@@ -192,7 +199,7 @@ class _ChartState extends State<ChartFrag> {
       limit2.add(FlSpot(maxX, 151));
     }
     // Cannot draw line if only have one point, therefor check it before draw
-    if (aoi.length > 1)
+    if (aois.length > 1)
       return Column(
         children: <Widget>[
           // Description
@@ -286,7 +293,7 @@ class _ChartState extends State<ChartFrag> {
             flex: 10,
             child: Container(
               width: double.infinity,
-              child: _chart(aoi, limit, limit2),
+              child: _chart(aois, limit, limit2),
             ),
           ),
         ],

@@ -26,7 +26,6 @@ class AppService : Service() {
             if (socket == null)
                 socket = Socket()
 
-
             // Connect to host with new Thread
             object : Thread() {
                 override fun run() {

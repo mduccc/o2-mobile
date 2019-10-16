@@ -23,12 +23,12 @@ class Thresholds {
         fun aqi(value: Double): String {
             var message = ""
 
-            if (value >= 0 && value < 75) message = verygood
-            if (value >= 75 && value < 150) message = good
-            if (value >= 150 && value < 300) message = normal
-            if (value >= 300 && value < 1050) message = medium
-            if (value >= 1050 && value < 3000) message = bad
-            if (value >= 3000) message = extreme
+            if (value >= 0 && value < 51) message = verygood
+            if (value >= 51 && value < 101) message = normal
+            if (value >= 101 && value < 151) message = medium
+            if (value >= 151 && value < 201) message = bad
+            if (value >= 201 && value < 301) message = verybad
+            if (value >= 301) message = extreme
 
             return message
         }
@@ -36,11 +36,11 @@ class Thresholds {
         fun uv(value: Double): String {
             var message = ""
 
-            if (value >= 0 && value < 50) message = safe
-            if (value >= 50 && value < 125) message = medium
-            if (value >= 125 && value < 175) message = high
-            if (value >= 175 && value < 250) message = veryhight
-            if (value >= 250) message = extreme
+            if (value >= 0 && value < 2) message = safe
+            if (value >= 2 && value < 4) message = medium
+            if (value >= 4 && value < 7) message = high
+            if (value >= 7 && value < 10) message = veryhight
+            if (value >= 10) message = extreme
 
             return message
         }

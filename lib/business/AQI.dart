@@ -1,8 +1,8 @@
 class AQI {
-  double cal(double y) {
-    double aqi;
-    y <= 36.455 ? aqi = 0 : aqi = ((y / 1024) - 0.0356) * 120000 * 0.035;
-    return aqi;
+  double cal(double dust, double co, double smoke, double uv) {
+    return (dust / 1.66) * 0.9 +
+        ((co + smoke) / 2) * 4.84 * 0.05 +
+        uv * 1.2 * 0.05;
   }
 }
 
