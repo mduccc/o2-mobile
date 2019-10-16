@@ -23,8 +23,8 @@ class _DeviceGroupState extends State<DeviceGroup> {
 
   Widget _item(Map<String, dynamic> device, index) {
     return Container(
-      width: 70,
-      height: 70,
+      width: 60,
+      height: 60,
       margin: EdgeInsets.only(right: 15, bottom: 15, left: 15),
       decoration: BoxDecoration(
           color: device[device.keys.first] == '1' ? this._on : this._off,
@@ -91,6 +91,7 @@ class _DeviceGroupState extends State<DeviceGroup> {
       this._animate.add(Text(''));
     }
 
+    // Sort device by device id
     for (int i = 0; i < devices.length - 1; i++) {
       for (int j = i + 1; j < devices.length; j++) {
         if (int.parse(devices[i]
@@ -111,7 +112,7 @@ class _DeviceGroupState extends State<DeviceGroup> {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-      padding: EdgeInsets.all(15),
+      padding: EdgeInsets.only(left: 15, right: 15, top: 10),
       decoration: BoxDecoration(
           color: ThemseColors.secondColor,
           borderRadius: BorderRadius.all(Radius.circular(15))),
