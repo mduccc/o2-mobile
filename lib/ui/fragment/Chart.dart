@@ -26,7 +26,7 @@ class _ChartState extends State<ChartFrag> {
       dotData: FlDotData(
         show: true,
         dotColor: dotColor,
-        dotSize: 2,
+        dotSize: 0.5,
       ),
       isCurved: false,
       // Put data here
