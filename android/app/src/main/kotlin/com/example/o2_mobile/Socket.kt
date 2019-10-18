@@ -109,7 +109,7 @@ class Socket {
                         " ${Html.fromHtml("&#183;")} Độ ẩm: $humidity %\n" +
                         " ${Html.fromHtml("&#183;")} Hỗn hợp khí: $smoke ppm\n" +
                         " ${Html.fromHtml("&#183;")} CO: $co ppm\n" +
-                        " ${Html.fromHtml("&#183;")} Bụi: $dust ${"mg/m" + Html.fromHtml("&#179;").toString()}\n" +
+                        " ${Html.fromHtml("&#183;")} Bụi: $dust ${"ug/m" + Html.fromHtml("&#179;").toString()}\n" +
                         " ${Html.fromHtml("&#183;")} Tia UV: $uv ${"mW/cm" + Html.fromHtml("&#178;").toString()}\n" +
                         " ${Html.fromHtml("&#183;")} Độ ẩm đất: $soil %")
                 update()

@@ -194,7 +194,7 @@ class _BottomSheetState extends State<BottomSheet> {
         _airItem('CO', coQuality, co, 'ppm',
             Colors.greenAccent.withOpacity(0.6), Colors.white),
         // Dust
-        _airItem('Bụi', dustQuality, dust, 'mg/m' + HTML.decode('&#179;'),
+        _airItem('Bụi', dustQuality, dust, 'ug/m' + HTML.decode('&#179;'),
             Colors.blueAccent.withOpacity(0.8), Colors.white),
         // UV
         _airItem('Tia UV', uvQuality, uv, 'mW/cm' + HTML.decode('&#178;'),
